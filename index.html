@@ -261,15 +261,47 @@
   .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
   .li-card{position:relative;background:#0e1118;border:1px solid var(--line);border-radius:14px;display:flex;flex-direction:column;transition:border-color .2s ease,transform .25s ease,box-shadow .25s ease}
   .li-card:hover{border-color:rgba(139,92,246,.35);transform:translateY(-2px);box-shadow:0 24px 60px -30px rgba(76,29,149,.55)}
-  .li-banner{height:56px;width:100%;background:linear-gradient(135deg,#161827 0%,#1e1a32 60%,#231640 100%);border-top-left-radius:14px;border-top-right-radius:14px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
-  .li-banner::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 100% 0%,rgba(139,92,246,.18),transparent 60%);pointer-events:none}
-  .li-avatar{position:absolute;left:18px;top:24px;width:60px;height:60px;border-radius:50%;border:3px solid #0e1118;background:#1a1d27;overflow:hidden;z-index:2}
-  .li-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+  @media (prefers-reduced-motion: no-preference){
+    .li-card{
+      opacity:0;transform:translateY(12px);
+      transition:opacity .55s ease, transform .55s ease, border-color .2s ease, box-shadow .25s ease;
+      transition-delay:calc(var(--i,0) * 80ms);
+    }
+    .li-card.is-visible{opacity:1;transform:none}
+    .li-card .li-conn{
+      opacity:0;transform:scale(.85);
+      transition:opacity .35s ease, transform .42s cubic-bezier(.34,1.56,.64,1);
+      transition-delay:calc(var(--i,0) * 80ms + 380ms);
+    }
+    .li-card.is-visible .li-conn{opacity:1;transform:none}
+  }
+  .li-banner{height:64px;width:100%;background:linear-gradient(135deg,#161827 0%,#1e1a32 60%,#231640 100%);border-top-left-radius:14px;border-top-right-radius:14px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+  .li-banner::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 100% 0%,rgba(139,92,246,.18),transparent 60%);pointer-events:none;z-index:1}
+  .li-banner::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(110deg, rgba(167,139,250,.05) 0%, rgba(167,139,250,.30) 50%, rgba(167,139,250,.05) 100%);
+    background-size:200% 100%;
+    animation:bannerShimmer 14s cubic-bezier(.4, 0, .6, 1) infinite;
+    animation-delay:var(--shimmer-delay, 0s);
+    pointer-events:none;z-index:0;
+  }
+  @keyframes bannerShimmer{
+    0%   { background-position: 0% 0; }
+    100% { background-position: -200% 0; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .li-banner::before{animation:none}
+  }
+  .li-avatar{position:absolute;left:22px;top:30px;width:80px;height:80px;border-radius:50%;border:3px solid #0e1118;background:#1a1d27;overflow:hidden;z-index:2}
+  .li-avatar img{width:100%;height:100%;object-fit:cover;object-position:center 22%;display:block}
   .li-avatar.ph{display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#c4b5fd,#4c1d95 70%,#1e1145);font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:30px;color:rgba(255,255,255,.9);letter-spacing:-.02em}
-  .li-body{padding:40px 20px 14px;display:flex;flex-direction:column}
-  .li-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .li-body{padding:48px 20px 14px;display:flex;flex-direction:column}
+  .li-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+  .li-head .li-name{min-width:0}
+  .li-head .li-conn{flex-shrink:0}
   .li-name{font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:22px;color:#fff;letter-spacing:-.018em;line-height:1.15}
-  .li-conn{font-size:12px;color:#c4b5fd;font-weight:700;letter-spacing:.01em;white-space:nowrap}
+  .li-conn{display:inline-flex;align-items:center;gap:5px;padding:3px 9px 3px 8px;border-radius:999px;background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.28);font-size:11.5px;color:#cdb8ff;font-weight:600;letter-spacing:.01em;white-space:nowrap}
+  .li-conn svg{width:12px;height:12px;flex-shrink:0}
   .li-role{font-size:14.5px;color:var(--text);margin-top:6px;line-height:1.45}
   .li-role b{font-weight:inherit;color:inherit}
   .li-loc{font-size:13px;color:var(--text-3);margin-top:5px;line-height:1.4}
@@ -376,16 +408,42 @@
     background:rgba(167,139,250,.22);
     pointer-events:none;
   }
+  .spine-line::after{
+    content:"";position:absolute;left:0;top:0;
+    width:2px;height:26px;border-radius:2px;
+    background:linear-gradient(180deg, transparent 0%, rgba(205,184,255,1) 50%, transparent 100%);
+    box-shadow:0 0 14px rgba(167,139,250,.75);
+    pointer-events:none;
+    opacity:0;
+  }
+  .spine-line.pulsing::after{
+    animation:spinePulse 15s linear infinite;
+  }
+  @keyframes spinePulse{
+    0%   { top:-26px; opacity:0; }
+    2%   { opacity:1; }
+    33%  { top:100%; opacity:1; }
+    35%  { opacity:0; }
+    100% { top:100%; opacity:0; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .spine-line.pulsing::after{animation:none}
+  }
   .step{position:relative;padding:20px 0 72px}
-  .step:last-child{padding-bottom:0}
+  .step:last-child{padding-bottom:80px}
+  .node-rail{
+    position:absolute;left:-65px;top:34px;bottom:0;
+    width:48px;pointer-events:none;
+  }
   .step-node{
-    position:absolute;left:-65px;top:24px;
+    position:sticky;top:96px;
+    display:grid;place-items:center;
     width:48px;height:48px;border-radius:50%;
     background:radial-gradient(circle at 45% 35%, #1a1d2a, #0c0e15 70%);
     border:1px solid rgba(167,139,250,.4);
-    display:grid;place-items:center;
     font-family:'Bricolage Grotesque', sans-serif;font-weight:500;font-size:18px;color:#cdb8ff;
     box-shadow:0 0 0 6px var(--bg), 0 0 28px -8px rgba(167,139,250,.55);
+    transition:opacity .2s ease;
   }
   .step-eyebrow{
     display:inline-block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;
@@ -416,6 +474,66 @@
     }
     .form-row.is-typed .form-val{opacity:1;transform:none}
     .form-row.is-typed .form-check{transform:scale(1)}
+
+    /* row flash — fires once when row "types in", synced to the cascade */
+    .form-row.is-typed{
+      animation:rowActiveFlash 1.4s ease-out both;
+      animation-delay:calc(var(--ti,0) * 450ms + 80ms);
+    }
+    @keyframes rowActiveFlash{
+      0%   { background:rgba(255,255,255,.025); border-color:var(--line); box-shadow:0 0 0 0 rgba(167,139,250,0); }
+      18%  { background:rgba(167,139,250,.10); border-color:rgba(167,139,250,.45); box-shadow:0 0 0 4px rgba(167,139,250,.10), 0 8px 28px -10px rgba(167,139,250,.35); }
+      100% { background:rgba(255,255,255,.025); border-color:var(--line); box-shadow:0 0 0 0 rgba(167,139,250,0); }
+    }
+
+    /* form-card soft pulsing glow */
+    .form-card{
+      animation:cardGlow 6.5s ease-in-out infinite;
+    }
+    @keyframes cardGlow{
+      0%, 100% { box-shadow:0 0 0 1px rgba(167,139,250,.06), 0 24px 60px -32px rgba(139,92,246,.20); }
+      50%      { box-shadow:0 0 0 1px rgba(167,139,250,.14), 0 28px 72px -28px rgba(139,92,246,.42); }
+    }
+  }
+
+  /* Step 2 — background dot grid + accent particles */
+  .step--form{ isolation:isolate; }
+  .step--form::before{
+    content:"";position:absolute;inset:-20px 0 0;
+    background-image:radial-gradient(rgba(167,139,250,.22) 1.1px, transparent 1.6px);
+    background-size:24px 24px;
+    background-position:0 0;
+    -webkit-mask-image:radial-gradient(75% 65% at 50% 50%, #000 30%, transparent 85%);
+            mask-image:radial-gradient(75% 65% at 50% 50%, #000 30%, transparent 85%);
+    pointer-events:none;z-index:-1;opacity:1;
+  }
+
+  .step-particles{
+    position:absolute;inset:0;pointer-events:none;z-index:-1;overflow:hidden;
+  }
+  .step-particle{
+    position:absolute;width:6px;height:6px;border-radius:50%;
+    background:radial-gradient(circle, rgba(207,184,255,.95) 0%, rgba(167,139,250,.6) 45%, rgba(167,139,250,0) 75%);
+    opacity:0;filter:blur(.3px);
+    box-shadow:0 0 12px rgba(167,139,250,.55);
+  }
+  .step-particle::after{
+    content:"";position:absolute;inset:-7px;border-radius:50%;
+    background:radial-gradient(circle, rgba(167,139,250,.35), transparent 65%);
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .step-particle{ animation:partTwinkle 5.5s ease-in-out infinite; }
+    .step-particle:nth-child(1){ top:10%;  left:6%;  animation-delay:0s;   }
+    .step-particle:nth-child(2){ top:18%;  right:8%; animation-delay:1.4s; }
+    .step-particle:nth-child(3){ bottom:14%; left:9%; animation-delay:2.6s; }
+    .step-particle:nth-child(4){ bottom:22%; right:5%; animation-delay:3.8s; }
+    .step-particle:nth-child(5){ top:50%; left:3%; animation-delay:.7s; width:4px;height:4px; }
+    .step-particle:nth-child(6){ top:58%; right:3%; animation-delay:3.1s; width:4px;height:4px; }
+    @keyframes partTwinkle{
+      0%, 100% { opacity:0;       transform:scale(.6); }
+      35%      { opacity:.85;     transform:scale(1);  }
+      65%      { opacity:.45;     transform:scale(.95);}
+    }
   }
 
   /* Step 1 stage — chip row + profile cards */
@@ -465,30 +583,30 @@
 
   /* Step 2 — customization form */
   .form-card{
-    max-width:580px;margin:0 auto;
+    margin:0 28px;
     background:linear-gradient(180deg, #0e1118, #08090d);
-    border:1px solid var(--line);border-radius:18px;padding:22px 24px 24px;position:relative;overflow:hidden;
+    border:1px solid var(--line);border-radius:18px;padding:28px 36px 32px;position:relative;overflow:hidden;
   }
   .form-card::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 60% at 100% 0%, rgba(139,92,246,.1), transparent 60%);pointer-events:none}
-  .form-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;position:relative;gap:12px}
-  .form-head .form-icon{width:18px;height:18px;color:var(--text-3)}
+  .form-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px;position:relative;gap:12px;max-width:900px;margin-left:auto;margin-right:auto}
+  .form-head .form-icon{width:22px;height:22px;color:var(--text-3)}
   .form-tag{
-    display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.08em;
+    display:inline-flex;align-items:center;gap:8px;font-size:12.5px;letter-spacing:.08em;
     color:#cdb8ff;background:rgba(139,92,246,.13);border:1px solid rgba(167,139,250,.32);
-    padding:5px 11px;border-radius:999px;font-family:'Geist Mono',monospace;font-weight:500;
+    padding:7px 14px;border-radius:999px;font-family:'Geist Mono',monospace;font-weight:500;
   }
-  .form-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:#a78bfa;animation:formPulse 2s ease-in-out infinite}
+  .form-tag::before{content:"";width:7px;height:7px;border-radius:50%;background:#a78bfa;animation:formPulse 2s ease-in-out infinite}
   @keyframes formPulse{0%,100%{opacity:1}50%{opacity:.4}}
-  .form-rows{display:flex;flex-direction:column;gap:8px;position:relative}
+  .form-rows{display:flex;flex-direction:column;gap:12px;position:relative;max-width:900px;margin:0 auto}
   .form-row{
-    display:grid;grid-template-columns:auto 132px 1fr;gap:14px;align-items:center;
-    padding:12px 14px;border-radius:9px;
+    display:grid;grid-template-columns:auto 172px 1fr;gap:20px;align-items:center;
+    padding:19px 24px;border-radius:11px;
     background:rgba(255,255,255,.025);border:1px solid var(--line);
   }
-  .form-row .form-check{width:15px;height:15px;border-radius:50%;background:rgba(139,92,246,.18);border:1px solid rgba(167,139,250,.35);display:grid;place-items:center;flex-shrink:0}
-  .form-row .form-check svg{width:9px;height:9px;color:#cdb8ff}
-  .form-row .form-key{color:var(--text-3);font-size:11.5px;letter-spacing:.04em;font-family:'Geist Mono',monospace;text-transform:lowercase}
-  .form-row .form-val{color:var(--text);font-size:13.5px;letter-spacing:0}
+  .form-row .form-check{width:19px;height:19px;border-radius:50%;background:rgba(139,92,246,.18);border:1px solid rgba(167,139,250,.35);display:grid;place-items:center;flex-shrink:0}
+  .form-row .form-check svg{width:11px;height:11px;color:#cdb8ff}
+  .form-row .form-key{color:var(--text-3);font-size:13.5px;letter-spacing:.04em;font-family:'Geist Mono',monospace;text-transform:lowercase}
+  .form-row .form-val{color:var(--text);font-size:17.5px;letter-spacing:0;line-height:1.4}
   .form-row .form-val b{color:#fff;font-weight:500}
 
   /* Step 3 — tool grid */
@@ -516,7 +634,8 @@
   @media (max-width:920px){
     .steps-spine{padding-left:54px}
     .spine-line{left:28px}
-    .step-node{left:-44px;width:36px;height:36px;font-size:14px;top:30px}
+    .node-rail{left:-44px;top:30px;width:36px}
+    .step-node{width:36px;height:36px;font-size:14px;top:80px}
     .step1-cards{grid-template-columns:1fr;gap:14px}
     .step1-stage{padding:24px 0 28px}
     .inc-chip{position:static;display:inline-flex;transform:rotate(0deg);margin:6px 6px 0 0}
@@ -536,13 +655,29 @@
     background:linear-gradient(180deg, #10131c, #0b0e15);
     border:1px solid var(--line);border-radius:16px;padding:20px;position:relative;
     transition:border-color .25s ease, background .25s ease;
+    display:flex;flex-direction:column;
   }
   .price-card .tier{font-size:12.5px;color:var(--text-3);text-transform:uppercase;letter-spacing:.08em;font-weight:500}
   .price-card .num{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:500;font-size:36px;line-height:1;letter-spacing:-.03em;margin-top:10px;color:#fff}
   .price-card .num small{font-family:'Geist',sans-serif;font-size:13px;color:var(--text-3);font-weight:400;margin-left:4px;letter-spacing:0}
   .price-card .scope{font-size:12.5px;color:var(--text-2);margin-top:8px}
+  .price-card .price-cta{
+    margin-top:20px;display:inline-flex;align-items:center;justify-content:space-between;gap:10px;
+    background:rgba(255,255,255,.03);border:1px solid var(--line);
+    color:#fff;text-decoration:none;
+    padding:10px 14px;border-radius:10px;
+    font-size:13.5px;font-weight:500;letter-spacing:-.005em;
+    transition:background .2s ease, border-color .2s ease, transform .15s ease;
+  }
+  .price-card .scope{flex:1 1 auto}
+  .price-card .price-cta .arr{transition:transform .2s ease;color:#cdb8ff}
+  .price-card .price-cta:hover{background:rgba(167,139,250,.1);border-color:rgba(167,139,250,.4)}
+  .price-card .price-cta:hover .arr{transform:translateX(3px)}
   .price-card.hl{border-color:rgba(139,92,246,.5);background:linear-gradient(180deg, rgba(139,92,246,.12), rgba(139,92,246,.04) 60%, transparent), #0b0e15}
   .price-card.hl::before{content:"Your tier";position:absolute;top:-1px;right:14px;transform:translateY(-50%);font-size:11px;font-weight:500;background:#fff;color:#0b0d12;padding:4px 10px;border-radius:999px;letter-spacing:0;animation:tierBadgeIn .25s ease}
+  .price-card.hl .price-cta{background:linear-gradient(180deg, #a78bfa, #7c3aed);border-color:rgba(167,139,250,.55);box-shadow:0 8px 24px -10px rgba(139,92,246,.6)}
+  .price-card.hl .price-cta .arr{color:#fff}
+  .price-card.hl .price-cta:hover{background:linear-gradient(180deg, #b69aff, #8b5cf6)}
   @keyframes tierBadgeIn{from{opacity:0;transform:translateY(-50%) scale(.92)}to{opacity:1;transform:translateY(-50%) scale(1)}}
   .price-foot{display:flex;align-items:center;justify-content:space-between;margin-top:20px;padding-top:18px;border-top:1px solid var(--line);flex-wrap:wrap;gap:14px}
   .price-foot p{margin:0;color:var(--text-3);font-size:13.5px}
@@ -734,7 +869,7 @@
       <a href="#how-link">How it works</a>
       <a href="#pricing-link">Pricing</a>
     </div>
-    <a class="nav-cta" href="#order">Order now <span class="arr">&rarr;</span></a>
+    <a class="nav-cta" href="#order">Rent now <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l4 4-4 4"/></svg></a>
   </nav>
 </div>
 
@@ -779,7 +914,7 @@
 
       <!-- STEP 1 — Pick the profiles -->
       <article class="step">
-        <span class="step-node" aria-hidden="true">1</span>
+        <div class="node-rail" aria-hidden="true"><span class="step-node">1</span></div>
         <h3 class="step-title">Rent a profile</h3>
         <p class="step-desc">Hire a LinkedIn rep that's fully warmed up, and ready to send from day one.</p>
 
@@ -792,7 +927,7 @@
                 <div class="li-body">
                   <div class="li-head">
                     <div class="li-name">Marcus Hale</div>
-                    <span class="li-conn">500+ connections</span>
+                    <span class="li-conn"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5.5 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm5 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM2 12c0-1.7 1.5-3 3.5-3s3.5 1.3 3.5 3v1H2v-1Zm7 1v-1c0-.7-.2-1.4-.6-2 .4-.1.7-.1 1.1-.1 2 0 3.5 1.3 3.5 3v1H9Z"/></svg>500+ connections</span>
                   </div>
                   <div class="li-role">Senior Account Executive at <b>CloudPivot</b></div>
                   <div class="li-loc">United Kingdom &middot; B2B SaaS</div>
@@ -801,11 +936,11 @@
 
               <article class="li-card">
                 <div class="li-banner"></div>
-                <div class="li-avatar"><img src="images/personas/sophie.jpg" alt="Portrait of Sophie Laurent" loading="lazy"/></div>
+                <div class="li-avatar"><img src="images/personas/sophie.jpg" alt="Portrait of Sophie Roy" loading="lazy"/></div>
                 <div class="li-body">
                   <div class="li-head">
-                    <div class="li-name">Sophie Laurent</div>
-                    <span class="li-conn">500+ connections</span>
+                    <div class="li-name">Sophie Roy</div>
+                    <span class="li-conn"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5.5 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm5 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM2 12c0-1.7 1.5-3 3.5-3s3.5 1.3 3.5 3v1H2v-1Zm7 1v-1c0-.7-.2-1.4-.6-2 .4-.1.7-.1 1.1-.1 2 0 3.5 1.3 3.5 3v1H9Z"/></svg>500+ connections</span>
                   </div>
                   <div class="li-role">Head of Talent Acquisition at <b>TalentForge</b></div>
                   <div class="li-loc">France &middot; Recruiting</div>
@@ -818,7 +953,7 @@
                 <div class="li-body">
                   <div class="li-head">
                     <div class="li-name">Pieter Janssen</div>
-                    <span class="li-conn">500+ connections</span>
+                    <span class="li-conn"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5.5 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm5 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM2 12c0-1.7 1.5-3 3.5-3s3.5 1.3 3.5 3v1H2v-1Zm7 1v-1c0-.7-.2-1.4-.6-2 .4-.1.7-.1 1.1-.1 2 0 3.5 1.3 3.5 3v1H9Z"/></svg>500+ connections</span>
                   </div>
                   <div class="li-role">Growth Marketing Manager at <b>NorthBeam</b></div>
                   <div class="li-loc">Netherlands &middot; DTC / e-commerce</div>
@@ -827,11 +962,11 @@
 
               <article class="li-card">
                 <div class="li-banner"></div>
-                <div class="li-avatar"><img src="images/personas/anna.jpg" alt="Portrait of Anna Schneider" loading="lazy"/></div>
+                <div class="li-avatar"><img src="images/personas/anna.jpg" alt="Portrait of Anna Hahn" loading="lazy"/></div>
                 <div class="li-body">
                   <div class="li-head">
-                    <div class="li-name">Anna Schneider</div>
-                    <span class="li-conn">500+ connections</span>
+                    <div class="li-name">Anna Hahn</div>
+                    <span class="li-conn"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5.5 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm5 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM2 12c0-1.7 1.5-3 3.5-3s3.5 1.3 3.5 3v1H2v-1Zm7 1v-1c0-.7-.2-1.4-.6-2 .4-.1.7-.1 1.1-.1 2 0 3.5 1.3 3.5 3v1H9Z"/></svg>500+ connections</span>
                   </div>
                   <div class="li-role">Head of Partnerships at <b>LedgerWise</b></div>
                   <div class="li-loc">Germany &middot; Fintech</div>
@@ -840,11 +975,11 @@
 
               <article class="li-card">
                 <div class="li-banner"></div>
-                <div class="li-avatar"><img src="images/personas/lena.jpg" alt="Portrait of Lena Bergstroem" loading="lazy"/></div>
+                <div class="li-avatar"><img src="images/personas/lena.jpg" alt="Portrait of Lena Berg" loading="lazy"/></div>
                 <div class="li-body">
                   <div class="li-head">
-                    <div class="li-name">Lena Bergstr&ouml;m</div>
-                    <span class="li-conn">500+ connections</span>
+                    <div class="li-name">Lena Berg</div>
+                    <span class="li-conn"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5.5 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm5 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM2 12c0-1.7 1.5-3 3.5-3s3.5 1.3 3.5 3v1H2v-1Zm7 1v-1c0-.7-.2-1.4-.6-2 .4-.1.7-.1 1.1-.1 2 0 3.5 1.3 3.5 3v1H9Z"/></svg>500+ connections</span>
                   </div>
                   <div class="li-role">Director of Demand Gen at <b>NorthGate</b></div>
                   <div class="li-loc">Sweden &middot; Cybersecurity</div>
@@ -853,11 +988,11 @@
 
               <article class="li-card">
                 <div class="li-banner"></div>
-                <div class="li-avatar"><img src="images/personas/extra-male.jpg" alt="Portrait of James Whitaker" loading="lazy"/></div>
+                <div class="li-avatar"><img src="images/personas/extra-male.jpg" alt="Portrait of James Reed" loading="lazy"/></div>
                 <div class="li-body">
                   <div class="li-head">
-                    <div class="li-name">James Whitaker</div>
-                    <span class="li-conn">500+ connections</span>
+                    <div class="li-name">James Reed</div>
+                    <span class="li-conn"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5.5 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm5 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM2 12c0-1.7 1.5-3 3.5-3s3.5 1.3 3.5 3v1H2v-1Zm7 1v-1c0-.7-.2-1.4-.6-2 .4-.1.7-.1 1.1-.1 2 0 3.5 1.3 3.5 3v1H9Z"/></svg>500+ connections</span>
                   </div>
                   <div class="li-role">VP of Strategic Accounts at <b>HelixCare</b></div>
                   <div class="li-loc">United States &middot; Healthcare</div>
@@ -878,8 +1013,16 @@
       </article>
 
       <!-- STEP 2 — Fill out the customization form -->
-      <article class="step">
-        <span class="step-node" aria-hidden="true">2</span>
+      <article class="step step--form">
+        <div class="step-particles" aria-hidden="true">
+          <span class="step-particle"></span>
+          <span class="step-particle"></span>
+          <span class="step-particle"></span>
+          <span class="step-particle"></span>
+          <span class="step-particle"></span>
+          <span class="step-particle"></span>
+        </div>
+        <div class="node-rail" aria-hidden="true"><span class="step-node">2</span></div>
         <h3 class="step-title">Fill out the customization form</h3>
         <p class="step-desc">Tell us the company, the role, and the story. We build the profile to match before you ever log in.</p>
 
@@ -902,7 +1045,7 @@
 
       <!-- STEP 3 — Scale your LinkedIn outreach -->
       <article class="step">
-        <span class="step-node" aria-hidden="true">3</span>
+        <div class="node-rail" aria-hidden="true"><span class="step-node">3</span></div>
         <h3 class="step-title">Scale your LinkedIn outreach</h3>
         <p class="step-desc">Go past the LinkedIn limits and start more conversations faster with the tools you already use.</p>
 
@@ -936,21 +1079,25 @@
         <div class="tier">1&ndash;4 profiles</div>
         <div class="num">$100<small>/profile/mo</small></div>
         <div class="scope">For founders and small teams testing outbound.</div>
+        <a class="price-cta" href="#order">Rent now <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l4 4-4 4"/></svg></a>
       </div>
       <div class="price-card">
         <div class="tier">5&ndash;9 profiles</div>
         <div class="num">$90<small>/profile/mo</small></div>
         <div class="scope">For small agencies and SaaS teams scaling beyond their reps.</div>
+        <a class="price-cta" href="#order">Rent now <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l4 4-4 4"/></svg></a>
       </div>
       <div class="price-card">
         <div class="tier">10&ndash;24 profiles</div>
         <div class="num">$80<small>/profile/mo</small></div>
         <div class="scope">For agencies running outbound across multiple clients.</div>
+        <a class="price-cta" href="#order">Rent now <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l4 4-4 4"/></svg></a>
       </div>
       <div class="price-card">
         <div class="tier">25+ profiles</div>
         <div class="num">Custom</div>
         <div class="scope">For high-volume operations. Talk to us.</div>
+        <a class="price-cta" href="#order">Talk to us <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l4 4-4 4"/></svg></a>
       </div>
     </div>
 
@@ -1048,7 +1195,7 @@
     <p>Order your first profile in under 2 minutes. Delivered in 24 hours. $100/month, replaced no questions asked.</p>
     <div class="cta-row">
       <a class="btn btn-primary" href="#order-checkout">Order now <span class="price-pill">$100/profile</span></a>
-      <a class="btn btn-ghost" href="#contact">Talk to us first <span class="arr">&rarr;</span></a>
+      <a class="btn btn-ghost" href="#contact">Talk to us first <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l4 4-4 4"/></svg></a>
     </div>
   </div>
 </section>
@@ -1153,6 +1300,116 @@
     tx = ANCHOR_X; ty = ANCHOR_Y;
     if(!raf) raf = requestAnimationFrame(tick);
   });
+})();
+
+// Spine line — clip top to follow currently-pinned step-node
+// Also hide step-nodes that have been pushed past the sticky offset
+(function(){
+  var spine = document.querySelector('.steps-spine');
+  var line = document.querySelector('.spine-line');
+  if(!spine || !line) return;
+  var nodes = spine.querySelectorAll('.step-node');
+  var stickyOffset = 96;
+  var ticking = false;
+  var steps = spine.querySelectorAll('.step');
+  function update(){
+    ticking = false;
+    var spineTop = spine.getBoundingClientRect().top;
+    var topValue = 30;
+    // Find the LATEST step that contains the sticky-y=96 line within its bounds
+    var activeStep = null;
+    for(var i=0; i<steps.length; i++){
+      var r = steps[i].getBoundingClientRect();
+      if(r.top <= stickyOffset && r.bottom > stickyOffset){
+        activeStep = steps[i];
+      }
+    }
+    if(activeStep){
+      var nodeRect = activeStep.querySelector('.step-node').getBoundingClientRect();
+      topValue = nodeRect.bottom - spineTop;
+    }
+    line.style.top = topValue + 'px';
+    // Hide nodes that have been pushed above the sticky offset
+    for(var j=0; j<nodes.length; j++){
+      var nr = nodes[j].getBoundingClientRect();
+      nodes[j].style.opacity = (nr.top < stickyOffset - 1) ? '0' : '1';
+    }
+  }
+  window.addEventListener('scroll', function(){
+    if(!ticking){ requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+
+  // Trigger pulse on section entry — restart from frame 0 each time
+  var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var how = document.querySelector('.how');
+  if(how && !prefersReduced && 'IntersectionObserver' in window){
+    var pulseIo = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          line.classList.remove('pulsing');
+          void line.offsetWidth;  // force reflow to restart animation
+          line.classList.add('pulsing');
+        }
+      });
+    }, { threshold: 0.05 });
+    pulseIo.observe(how);
+  }
+})();
+
+// Hero → How it works snap (single transition, mirrors "See how it works" button)
+(function(){
+  var hero = document.querySelector('.hero');
+  var target = document.querySelector('#how-link');
+  if(!hero || !target) return;
+  function isInHero(){
+    var r = hero.getBoundingClientRect();
+    return r.bottom > 100;
+  }
+  window.addEventListener('wheel', function(e){
+    if(isInHero() && e.deltaY > 0){
+      e.preventDefault();
+      target.scrollIntoView({ behavior:'smooth', block:'start' });
+    }
+  }, { passive: false });
+  var touchStartY = 0;
+  window.addEventListener('touchstart', function(e){
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+  window.addEventListener('touchmove', function(e){
+    var dy = touchStartY - e.touches[0].clientY;
+    if(isInHero() && dy > 12){
+      e.preventDefault();
+      target.scrollIntoView({ behavior:'smooth', block:'start' });
+    }
+  }, { passive: false });
+})();
+
+// Step 1 cards — stagger reveal + per-card banner shimmer offset
+(function(){
+  var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var container = document.querySelector('.step1-cards');
+  if(!container) return;
+  var cards = container.querySelectorAll('.li-card');
+  cards.forEach(function(el, i){
+    el.style.setProperty('--i', i);
+    // Stagger banner shimmer so all 6 banners aren't in phase
+    var banner = el.querySelector('.li-banner');
+    if(banner) banner.style.setProperty('--shimmer-delay', (i * 1.2) + 's');
+  });
+  if(prefersReduced || !('IntersectionObserver' in window)){
+    cards.forEach(function(el){ el.classList.add('is-visible'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      cards.forEach(function(el){ el.classList.add('is-visible'); });
+      io.unobserve(e.target);
+    });
+  }, { rootMargin:'0px 0px -10% 0px', threshold: 0.1 });
+  io.observe(container);
 })();
 
 // Step 2 form — sequential typing on viewport entry
