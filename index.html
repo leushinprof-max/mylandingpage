@@ -118,7 +118,12 @@
   .nav-cta:hover .arr{transform:translateX(2px)}
 
   /* ---------- HERO ---------- */
-  .hero{padding:72px 0 60px;position:relative;overflow:hidden}
+  .hero{
+    padding:0;position:relative;overflow:hidden;
+    min-height:100vh;
+    min-height:100svh;
+    display:flex;flex-direction:column;justify-content:center;
+  }
   .hero-bg{
     position:absolute;inset:-80px 0 0 0;pointer-events:none;z-index:0;
   }
@@ -154,7 +159,7 @@
     background-size:64px 64px;
     mask-image: radial-gradient(ellipse 70% 50% at 50% 30%, black 30%, transparent 70%);
   }
-  .hero-inner{position:relative;z-index:2;text-align:center;padding-top:48px}
+  .hero-inner{position:relative;z-index:2;text-align:center;padding-top:0}
   .hero-inner > *{opacity:0;transform:translateY(14px);animation:heroFadeUp .85s cubic-bezier(.2,.7,.2,1) forwards}
   .hero-inner > *:nth-child(1){animation-delay:.05s}
   .hero-inner > *:nth-child(2){animation-delay:.18s}
@@ -164,7 +169,6 @@
   @keyframes heroFadeUp{to{opacity:1;transform:none}}
 
   @media (prefers-reduced-motion: reduce){
-    h1.display em{animation:none !important}
     .hero-spotlight{display:none}
     .hero-inner > *{opacity:1;transform:none;animation:none}
   }
@@ -186,20 +190,12 @@
     font-family: 'Bricolage Grotesque', system-ui, sans-serif;
     font-weight: 500;
     letter-spacing: -.03em;
-    font-size:clamp(44px, 6.4vw, 92px);
-    line-height:1.02;
-    margin:22px auto 0;max-width:1040px;
+    font-size:clamp(40px, 5.4vw, 80px);
+    line-height:1.04;
+    margin:22px auto 0;max-width:1080px;
     color:#f4f4f7;
   }
-  h1.display em{
-    font-style:normal;color:#cdb8ff;font-weight:inherit;
-    text-shadow:0 0 0 rgba(205,184,255,0);
-    animation:emGlow 5.5s ease-in-out 1.4s infinite;
-  }
-  @keyframes emGlow{
-    0%,30%,100%{text-shadow:0 0 0 rgba(205,184,255,0)}
-    50%{text-shadow:0 0 28px rgba(205,184,255,.55)}
-  }
+  h1.display em{font-style:normal;color:#cdb8ff;font-weight:inherit}
   h1.display .price{
     font-family:'Geist', sans-serif;font-weight:400;font-style:normal;
     color:#fff;letter-spacing:-.03em;
@@ -232,6 +228,25 @@
   }
   .btn-link .arr{transition:transform .2s ease}
   .btn-link:hover .arr{transform:translateX(3px)}
+
+  .btn-scroll{
+    color:var(--text);font-size:14.5px;
+    display:inline-flex;flex-direction:column;align-items:center;gap:10px;
+    padding:6px 8px;
+  }
+  .btn-scroll .arr-down{
+    width:20px;height:20px;opacity:.65;
+    transition:opacity .2s ease, transform .2s ease;
+    animation:scrollHint 2.6s ease-in-out infinite;
+  }
+  .btn-scroll:hover .arr-down{opacity:1;transform:translateY(2px)}
+  @keyframes scrollHint{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(4px)}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .btn-scroll .arr-down{animation:none}
+  }
   .micro{margin-top:18px;font-size:13px;color:var(--text-3);display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
   .micro span{display:inline-flex;align-items:center;gap:6px}
   .micro .dot{width:4px;height:4px;border-radius:50%;background:var(--text-3)}
@@ -625,20 +640,21 @@
     </a>
 
     <h1 class="display">
-      LinkedIn profiles that scale<br/>
-      your outreach. <em>$100/month.</em><br/>
-      Replaced in 24h, no questions.
+      Scale your LinkedIn outbound<br/>
+      <em>beyond the limits.</em>
     </h1>
 
     <p class="hero-sub">
-      Purpose-built profiles, hand-warmed for 90+ days, with 500+ real connections and a dedicated IP. Plug into any LinkedIn automation tool. Delivered in 24 hours.
+      Hire profiles the way you'd hire SDRs. Run as many invites as your pipeline needs.
     </p>
 
     <div class="cta-row">
-      <a class="btn btn-primary" href="#order">
-        Order now <span class="price-pill">$100/profile</span>
+      <a class="btn-scroll" href="#how-link">
+        <span>See how it works</span>
+        <svg class="arr-down" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M10 4v10M5 11l5 5 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </a>
-      <a class="btn-link" href="#how-link">See how it works <span class="arr">&rarr;</span></a>
     </div>
 
   </div>
