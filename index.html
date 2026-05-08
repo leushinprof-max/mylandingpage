@@ -29,6 +29,20 @@
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:96px}
+
+  /* section reveal on scroll */
+  .reveal{
+    opacity:0;transform:translateY(28px);
+    transition:opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1);
+    will-change:opacity,transform;
+  }
+  .reveal.in{opacity:1;transform:none}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    .reveal,.reveal.in{opacity:1;transform:none;transition:none}
+  }
   body{
     font-family:'Geist', ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
     background:var(--bg);
@@ -84,8 +98,12 @@
     opacity:0;pointer-events:none;transform:translateY(-4px);
     transition:opacity .15s ease, transform .15s ease;
   }
-  .menu:hover .pop{opacity:1;pointer-events:auto;transform:translateY(0)}
-  .pop a{display:flex;flex-direction:column;padding:10px 12px;border-radius:10px;color:var(--text)}
+  /* invisible bridge so cursor can travel from menu trigger to pop without losing :hover */
+  .menu .pop::before{
+    content:"";position:absolute;left:0;right:0;top:-14px;height:14px;
+  }
+  .menu:hover .pop, .menu:focus-within .pop{opacity:1;pointer-events:auto;transform:translateY(0)}
+  .pop a{display:flex;flex-direction:column;padding:10px 12px;border-radius:10px;color:var(--text);cursor:pointer}
   .pop a:hover{background:rgba(255,255,255,.05)}
   .pop a small{color:var(--text-3);font-size:12px;margin-top:2px}
   .nav-cta{
@@ -155,12 +173,15 @@
     background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
     border-radius:999px;font-size:13px;color:var(--text-2);
     backdrop-filter:blur(8px);
+    transition:background .2s ease, border-color .2s ease, color .2s ease;
   }
+  a.badge:hover{background:rgba(255,255,255,.07);border-color:rgba(167,139,250,.35);color:var(--text)}
+  a.badge:hover .arr{opacity:1;transform:translateX(2px)}
   .badge .tag{
     background:rgba(139,92,246,.18);color:#c4b5fd;font-size:11px;
     padding:3px 8px;border-radius:999px;font-weight:600;letter-spacing:.04em;
   }
-  .badge .arr{opacity:.6;margin-left:4px}
+  .badge .arr{opacity:.6;margin-left:4px;transition:transform .2s ease, opacity .2s ease}
   h1.display{
     font-family: 'Bricolage Grotesque', system-ui, sans-serif;
     font-weight: 500;
@@ -586,7 +607,6 @@
         </div>
       </div>
       <a href="#faq-link">FAQ</a>
-      <a href="#compare-link">Comparison</a>
     </div>
     <a class="nav-cta" href="#order">Order now <span class="arr">&rarr;</span></a>
   </nav>
@@ -598,11 +618,11 @@
   <div class="hero-grid"></div>
   <div class="hero-spotlight"></div>
   <div class="wrap hero-inner">
-    <span class="badge">
+    <a class="badge" href="#guarantee">
       <span class="tag">NEW</span>
-      <span>24-hour replacement guarantee, no questions asked</span>
+      <span>Replacement guarantee, no questions asked</span>
       <span class="arr">&rarr;</span>
-    </span>
+    </a>
 
     <h1 class="display">
       LinkedIn profiles that scale<br/>
@@ -619,14 +639,6 @@
         Order now <span class="price-pill">$100/profile</span>
       </a>
       <a class="btn-link" href="#how-link">See how it works <span class="arr">&rarr;</span></a>
-    </div>
-
-    <div class="micro">
-      <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="#86efac" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>No contract</span>
-      <span class="dot"></span>
-      <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="#86efac" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Cancel anytime</span>
-      <span class="dot"></span>
-      <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="#86efac" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>24-hour replacement</span>
     </div>
 
   </div>
@@ -1036,7 +1048,7 @@
 </section>
 
 <!-- ============ GUARANTEE ============ -->
-<section class="guar">
+<section class="guar" id="guarantee">
   <div class="wrap">
     <div class="guar-card">
       <div class="col-text">
@@ -1211,6 +1223,26 @@
     tx = ANCHOR_X; ty = ANCHOR_Y;
     if(!raf) raf = requestAnimationFrame(tick);
   });
+})();
+
+// section reveal on scroll
+(function(){
+  var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var nodes = document.querySelectorAll('section:not(.hero), footer');
+  if(prefersReduced || !('IntersectionObserver' in window)){
+    nodes.forEach(function(n){ n.classList.add('reveal','in'); });
+    return;
+  }
+  nodes.forEach(function(n){ n.classList.add('reveal'); });
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  nodes.forEach(function(n){ io.observe(n); });
 })();
 </script>
 
