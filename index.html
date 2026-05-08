@@ -585,29 +585,116 @@
   .form-card{
     margin:0 28px;
     background:linear-gradient(180deg, #0e1118, #08090d);
-    border:1px solid var(--line);border-radius:18px;padding:28px 36px 32px;position:relative;overflow:hidden;
+    border:1px solid var(--line);border-radius:18px;padding:28px 32px 30px;position:relative;overflow:hidden;
   }
   .form-card::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 60% at 100% 0%, rgba(139,92,246,.1), transparent 60%);pointer-events:none}
-  .form-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px;position:relative;gap:12px;max-width:900px;margin-left:auto;margin-right:auto}
-  .form-head .form-icon{width:22px;height:22px;color:var(--text-3)}
-  .form-tag{
-    display:inline-flex;align-items:center;gap:8px;font-size:12.5px;letter-spacing:.08em;
-    color:#cdb8ff;background:rgba(139,92,246,.13);border:1px solid rgba(167,139,250,.32);
-    padding:7px 14px;border-radius:999px;font-family:'Geist Mono',monospace;font-weight:500;
+  .form-card-grid{
+    display:grid;grid-template-columns:1fr minmax(320px, 360px);
+    gap:36px;align-items:stretch;position:relative;
   }
-  .form-tag::before{content:"";width:7px;height:7px;border-radius:50%;background:#a78bfa;animation:formPulse 2s ease-in-out infinite}
-  @keyframes formPulse{0%,100%{opacity:1}50%{opacity:.4}}
-  .form-rows{display:flex;flex-direction:column;gap:12px;position:relative;max-width:900px;margin:0 auto}
+  .form-col{display:flex;flex-direction:column;min-height:100%}
+  .form-col-input .form-rows{flex:1;justify-content:space-between}
+  .form-col-output .preview-card{flex:1;display:flex;flex-direction:column}
+  .form-col-output .preview-body{flex:1}
+  .form-col-label{
+    font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.18em;
+    color:var(--text-3);text-transform:uppercase;
+    margin:0 0 12px;display:flex;align-items:center;gap:8px;
+  }
+  .form-col-label .live-dot{
+    width:6px;height:6px;border-radius:50%;background:#a78bfa;
+    box-shadow:0 0 8px rgba(167,139,250,.7);
+    animation:formPulse 2s ease-in-out infinite;
+  }
+  @keyframes formPulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .form-rows{display:flex;flex-direction:column;gap:11px;position:relative}
   .form-row{
-    display:grid;grid-template-columns:auto 172px 1fr;gap:20px;align-items:center;
-    padding:19px 24px;border-radius:11px;
+    display:grid;grid-template-columns:auto 144px 1fr;gap:18px;align-items:center;
+    padding:16px 20px;border-radius:11px;
     background:rgba(255,255,255,.025);border:1px solid var(--line);
   }
   .form-row .form-check{width:19px;height:19px;border-radius:50%;background:rgba(139,92,246,.18);border:1px solid rgba(167,139,250,.35);display:grid;place-items:center;flex-shrink:0}
   .form-row .form-check svg{width:11px;height:11px;color:#cdb8ff}
-  .form-row .form-key{color:var(--text-3);font-size:13.5px;letter-spacing:.04em;font-family:'Geist Mono',monospace;text-transform:lowercase}
-  .form-row .form-val{color:var(--text);font-size:17.5px;letter-spacing:0;line-height:1.4}
+  .form-row .form-key{color:var(--text-3);font-size:13px;letter-spacing:.04em;font-family:'Geist Mono',monospace;text-transform:lowercase}
+  .form-row .form-val{color:var(--text);font-size:16px;letter-spacing:0;line-height:1.4;text-align:left}
   .form-row .form-val b{color:#fff;font-weight:500}
+  .form-chips{display:inline-flex;flex-wrap:nowrap;gap:5px;align-items:center;white-space:nowrap}
+  .form-chip{
+    display:inline-flex;align-items:center;
+    padding:3px 8px;border-radius:999px;
+    background:rgba(167,139,250,.10);
+    border:1px solid rgba(167,139,250,.28);
+    font-size:11.5px;color:#cdb8ff;font-weight:500;
+    letter-spacing:0;line-height:1.2;
+    white-space:nowrap;flex-shrink:0;
+  }
+
+  /* Step 2 — profile preview card (right column) */
+  .preview-card{
+    position:relative;background:#0e1118;border:1px solid var(--line);border-radius:14px;
+    overflow:hidden;
+  }
+  .preview-banner{
+    height:64px;width:100%;
+    background:linear-gradient(135deg,#161827 0%,#1e1a32 60%,#231640 100%);
+    border-bottom:1px solid var(--line);position:relative;overflow:hidden;
+  }
+  .preview-banner::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 100% 0%,rgba(139,92,246,.18),transparent 60%);pointer-events:none;z-index:1}
+  .preview-banner::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(110deg, rgba(167,139,250,.05) 0%, rgba(167,139,250,.30) 50%, rgba(167,139,250,.05) 100%);
+    background-size:200% 100%;
+    animation:bannerShimmer 14s cubic-bezier(.4, 0, .6, 1) infinite;
+    animation-delay:1.5s;
+    pointer-events:none;z-index:0;
+  }
+  .preview-avatar{
+    position:absolute;left:18px;top:30px;width:80px;height:80px;
+    border-radius:50%;border:3px solid #0e1118;background:#1a1d27;
+    overflow:hidden;z-index:2;
+  }
+  .preview-avatar img{width:100%;height:100%;object-fit:cover;object-position:center 22%;display:block}
+  .preview-body{padding:50px 18px 18px}
+  .preview-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:4px}
+  .preview-name{font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:20px;color:#fff;letter-spacing:-.018em;line-height:1.15;min-width:0}
+  .preview-conn{
+    display:inline-flex;align-items:center;gap:5px;flex-shrink:0;
+    padding:3px 9px 3px 8px;border-radius:999px;
+    background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.28);
+    font-size:11px;color:#cdb8ff;font-weight:600;white-space:nowrap;
+  }
+  .preview-conn svg{width:11px;height:11px;flex-shrink:0}
+  .preview-role{font-size:14px;color:var(--text);margin-top:6px;line-height:1.4}
+  .preview-role b{color:#fff;font-weight:500}
+  .preview-headline{font-size:13px;color:var(--text-2);margin-top:8px;line-height:1.5}
+  .preview-headline b{color:#fff;font-weight:500}
+  .preview-divider{height:1px;background:var(--line);margin:14px 0 12px}
+  .preview-section-label{
+    font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.16em;
+    color:var(--text-3);text-transform:uppercase;margin-bottom:6px;
+  }
+  .preview-about{font-size:12.5px;color:var(--text-2);line-height:1.5}
+  .preview-about b{color:#cdb8ff;font-weight:500}
+  .preview-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+  .preview-chip{
+    display:inline-flex;padding:3px 8px;border-radius:999px;
+    background:rgba(167,139,250,.10);border:1px solid rgba(167,139,250,.28);
+    font-size:11px;color:#cdb8ff;font-weight:500;line-height:1.2;
+  }
+
+  /* preview field reveal — synced with form-row typing cascade */
+  @media (prefers-reduced-motion: no-preference){
+    .preview-field{
+      opacity:0;transform:translateY(4px);
+      transition:opacity .55s ease, transform .55s ease;
+      transition-delay:calc(var(--ti,0) * 450ms);
+    }
+    .preview-field.is-typed{opacity:1;transform:none}
+  }
+
+  @media (max-width:920px){
+    .form-card-grid{grid-template-columns:1fr;gap:24px}
+  }
 
   /* Step 3 — tool grid */
   .tool-grid{
@@ -1012,7 +1099,7 @@
         </div>
       </article>
 
-      <!-- STEP 2 — Fill out the customization form -->
+      <!-- STEP 2 — Customize your profile -->
       <article class="step step--form">
         <div class="step-particles" aria-hidden="true">
           <span class="step-particle"></span>
@@ -1023,21 +1110,48 @@
           <span class="step-particle"></span>
         </div>
         <div class="node-rail" aria-hidden="true"><span class="step-node">2</span></div>
-        <h3 class="step-title">Fill out the customization form</h3>
-        <p class="step-desc">Tell us the company, the role, and the story. We build the profile to match before you ever log in.</p>
+        <h3 class="step-title">Customize your profile</h3>
+        <p class="step-desc">Fill out a short form and we tailor the profile to match before you ever log in.</p>
 
         <div class="step-visual">
           <div class="form-card">
-            <div class="form-head">
-              <svg class="form-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3" width="11" height="10" rx="1.5"/><path d="M5 6.5h6M5 9h5M5 11.5h3"/></svg>
-              <span class="form-tag">Customization form</span>
-            </div>
-            <div class="form-rows">
-              <div class="form-row"><span class="form-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="form-key">company</span><span class="form-val"><b>CloudPivot</b></span></div>
-              <div class="form-row"><span class="form-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="form-key">position</span><span class="form-val"><b>Senior Account Executive</b></span></div>
-              <div class="form-row"><span class="form-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="form-key">headline</span><span class="form-val">Helping mid-market SaaS hit pipeline goals</span></div>
-              <div class="form-row"><span class="form-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="form-key">about</span><span class="form-val">12 years across <b>Salesforce</b>, Outreach, ZoomInfo</span></div>
-              <div class="form-row"><span class="form-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="form-key">experience</span><span class="form-val"><b>5 prior roles</b> &middot; 12 years in B2B SaaS</span></div>
+            <div class="form-card-grid">
+              <div class="form-col form-col-input">
+                <div class="form-col-label">Customization form</div>
+                <div class="form-rows">
+                  <div class="form-row"><span class="form-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="form-key">company</span><span class="form-val"><b>CloudPivot</b></span></div>
+                  <div class="form-row"><span class="form-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="form-key">position</span><span class="form-val"><b>GTM Engineer</b></span></div>
+                  <div class="form-row"><span class="form-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="form-key">headline</span><span class="form-val">Helping <b>mid-market SaaS</b> hit pipeline goals</span></div>
+                  <div class="form-row"><span class="form-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="form-key">about</span><span class="form-val">8 years building outbound with <b>Clay</b>, HubSpot, n8n</span></div>
+                  <div class="form-row"><span class="form-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="form-key">skills</span><span class="form-val form-chips"><span class="form-chip">Outbound</span><span class="form-chip">Lead enrichment</span><span class="form-chip">Workflow automation</span><span class="form-chip">Cold email</span></span></div>
+                </div>
+              </div>
+              <div class="form-col form-col-output">
+                <div class="form-col-label"><span class="live-dot" aria-hidden="true"></span>Profile preview</div>
+                <div class="preview-card">
+                  <div class="preview-banner"></div>
+                  <div class="preview-avatar"><img src="images/personas/maya.png" alt="Portrait of Maya Chen" loading="lazy"/></div>
+                  <div class="preview-body">
+                    <div class="preview-head">
+                      <div class="preview-name preview-field" style="--ti:0">Maya Chen</div>
+                      <span class="preview-conn preview-field" style="--ti:5"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5.5 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm5 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM2 12c0-1.7 1.5-3 3.5-3s3.5 1.3 3.5 3v1H2v-1Zm7 1v-1c0-.7-.2-1.4-.6-2 .4-.1.7-.1 1.1-.1 2 0 3.5 1.3 3.5 3v1H9Z"/></svg>500+</span>
+                    </div>
+                    <div class="preview-role preview-field" style="--ti:1"><b>GTM Engineer</b> at <b>CloudPivot</b></div>
+                    <div class="preview-headline preview-field" style="--ti:2">Helping <b>mid-market SaaS</b> hit pipeline goals</div>
+                    <div class="preview-divider"></div>
+                    <div class="preview-section-label">About</div>
+                    <div class="preview-about preview-field" style="--ti:3">8 years building outbound with <b>Clay</b>, HubSpot, n8n.</div>
+                    <div class="preview-divider"></div>
+                    <div class="preview-section-label">Skills</div>
+                    <div class="preview-chips preview-field" style="--ti:4">
+                      <span class="preview-chip">Outbound</span>
+                      <span class="preview-chip">Lead enrichment</span>
+                      <span class="preview-chip">Workflow automation</span>
+                      <span class="preview-chip">Cold email</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1420,6 +1534,7 @@
 
   if(prefersReduced || !('IntersectionObserver' in window)){
     formRows.forEach(function(el){ el.classList.add('is-typed'); });
+    document.querySelectorAll('.preview-field').forEach(function(el){ el.classList.add('is-typed'); });
     return;
   }
 
@@ -1430,6 +1545,7 @@
     entries.forEach(function(e){
       if(!e.isIntersecting) return;
       stepEl.querySelectorAll('.form-row').forEach(function(el){ el.classList.add('is-typed'); });
+      stepEl.querySelectorAll('.preview-field').forEach(function(el){ el.classList.add('is-typed'); });
       io.unobserve(e.target);
     });
   }, { rootMargin: '0px 0px -15% 0px', threshold: 0.2 });
