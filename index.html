@@ -261,29 +261,24 @@
   .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
   .li-card{position:relative;background:#0e1118;border:1px solid var(--line);border-radius:14px;display:flex;flex-direction:column;transition:border-color .2s ease,transform .25s ease,box-shadow .25s ease}
   .li-card:hover{border-color:rgba(139,92,246,.35);transform:translateY(-2px);box-shadow:0 24px 60px -30px rgba(76,29,149,.55)}
-  .li-banner{height:72px;width:100%;background:linear-gradient(135deg,#161827 0%,#1e1a32 60%,#231640 100%);border-top-left-radius:14px;border-top-right-radius:14px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+  .li-banner{height:56px;width:100%;background:linear-gradient(135deg,#161827 0%,#1e1a32 60%,#231640 100%);border-top-left-radius:14px;border-top-right-radius:14px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
   .li-banner::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 100% 0%,rgba(139,92,246,.18),transparent 60%);pointer-events:none}
-  .li-avatar{position:absolute;left:20px;top:36px;width:72px;height:72px;border-radius:50%;border:3px solid #0e1118;background:#1a1d27;overflow:hidden;z-index:2}
+  .li-avatar{position:absolute;left:18px;top:24px;width:60px;height:60px;border-radius:50%;border:3px solid #0e1118;background:#1a1d27;overflow:hidden;z-index:2}
   .li-avatar img{width:100%;height:100%;object-fit:cover;display:block}
   .li-avatar.ph{display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#c4b5fd,#4c1d95 70%,#1e1145);font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:30px;color:rgba(255,255,255,.9);letter-spacing:-.02em}
-  .li-body{padding:50px 22px 0;display:flex;flex-direction:column}
+  .li-body{padding:40px 20px 14px;display:flex;flex-direction:column}
+  .li-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
   .li-name{font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:22px;color:#fff;letter-spacing:-.018em;line-height:1.15}
+  .li-conn{font-size:12px;color:#c4b5fd;font-weight:700;letter-spacing:.01em;white-space:nowrap}
   .li-role{font-size:14.5px;color:var(--text);margin-top:6px;line-height:1.45}
-  .li-role b{font-weight:600;color:#fff}
+  .li-role b{font-weight:inherit;color:inherit}
   .li-loc{font-size:13px;color:var(--text-3);margin-top:5px;line-height:1.4}
-  .li-foot{margin:22px 0 0;padding:14px 22px 18px;border-top:1px solid var(--line);display:flex;align-items:center;gap:18px;flex-wrap:wrap}
   .li-pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2)}
   .li-pill svg{flex-shrink:0;opacity:.7}
   .li-pill.go{color:#86efac}
   .li-pill.go svg{opacity:1;color:#fbbf24}
   .li-pill.uvp{color:#e9d5ff;font-weight:600;font-size:13.5px;background:rgba(139,92,246,.13);border:1px solid rgba(167,139,250,.32);padding:5px 11px;border-radius:999px}
   .li-pill.uvp svg{opacity:1;color:#cdb8ff}
-  .li-annot{position:absolute;inset:0;pointer-events:none;z-index:5}
-  .li-annot .lab{position:absolute;top:96px;right:16px;max-width:158px;text-align:right;font-family:'Caveat',cursive;font-style:italic;font-weight:600;font-size:18px;line-height:1.05;color:#cdb8ff;display:inline-block}
-  .li-annot.m1 .lab{transform:rotate(-2deg)}
-  .li-annot.s1 .lab{transform:rotate(2deg)}
-  .li-annot.p1 .lab{transform:rotate(-1.5deg)}
-
   .cat-foot{
     margin-top:32px;display:flex;justify-content:center;align-items:center;
     gap:6px;font-size:14px;color:var(--text-3);text-align:center;flex-wrap:wrap;
@@ -369,48 +364,168 @@
   .calc-foot{margin-top:24px;text-align:center;font-size:13px;color:var(--text-3);line-height:1.5}
   .calc-foot b{color:var(--text);font-weight:500}
 
-  /* ---------- HOW IT WORKS ---------- */
-  .how{padding:96px 0;background:linear-gradient(180deg, var(--bg) 0%, #0a0c12 50%, var(--bg) 100%);position:relative}
-  .how-head{text-align:left;max-width:1080px;margin:0 auto 64px}
-  .how-head .eyebrow{justify-content:flex-start}
-  .how-head .section-sub{margin-top:18px;color:var(--text-2);font-size:17px;line-height:1.55;max-width:680px}
+  /* ---------- HOW IT WORKS — mega section ---------- */
+  .how{padding:48px 0 120px;background:linear-gradient(180deg, var(--bg) 0%, #0a0c12 50%, var(--bg) 100%);position:relative}
+  .how-intro{text-align:center;max-width:780px;margin:0 auto 80px}
+  .how-intro .eyebrow{justify-content:center}
+  .how-intro .section-sub{margin-top:18px;font-size:17px;color:var(--text-2);max-width:680px;margin-left:auto;margin-right:auto}
 
-  .howit-grid{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;max-width:1080px;margin:0 auto;width:100%}
-  .howit-rail{position:absolute;top:42px;left:calc(100%/6);right:calc(100%/6);height:1px;background:linear-gradient(90deg,transparent,rgba(167,139,250,.32) 12%,rgba(167,139,250,.32) 88%,transparent);pointer-events:none;z-index:0}
-  .howit-pulse{position:absolute;top:50%;left:0;width:60px;height:2px;border-radius:2px;transform:translate(-30px,-50%);background:linear-gradient(90deg,transparent,#a78bfa 50%,transparent);animation:howitFlow 4.2s linear infinite}
-  .howit-pulse.p2{animation-delay:2.1s;opacity:.6}
-  @keyframes howitFlow{0%{left:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:100%;opacity:0}}
+  .steps-spine{position:relative;padding-left:88px;max-width:1180px;margin:0 auto}
+  .spine-line{
+    position:absolute;left:46px;top:30px;bottom:30px;width:2px;border-radius:2px;
+    background:rgba(167,139,250,.22);
+    pointer-events:none;
+  }
+  .step{position:relative;padding:20px 0 72px}
+  .step:last-child{padding-bottom:0}
+  .step-node{
+    position:absolute;left:-65px;top:24px;
+    width:48px;height:48px;border-radius:50%;
+    background:radial-gradient(circle at 45% 35%, #1a1d2a, #0c0e15 70%);
+    border:1px solid rgba(167,139,250,.4);
+    display:grid;place-items:center;
+    font-family:'Bricolage Grotesque', sans-serif;font-weight:500;font-size:18px;color:#cdb8ff;
+    box-shadow:0 0 0 6px var(--bg), 0 0 28px -8px rgba(167,139,250,.55);
+  }
+  .step-eyebrow{
+    display:inline-block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--accent-2);font-weight:500;font-family:'Geist Mono',monospace;
+    background:rgba(139,92,246,.12);border:1px solid rgba(167,139,250,.25);
+    padding:5px 11px;border-radius:999px;
+  }
+  .step-title{
+    font-family:'Bricolage Grotesque', system-ui, sans-serif;font-weight:500;
+    font-size:clamp(30px, 3.6vw, 46px);letter-spacing:-.025em;line-height:1.05;
+    color:#fff;margin:14px 0 0;max-width:680px;
+  }
+  .step-title em{font-style:normal;color:#cdb8ff}
+  .step-desc{font-size:16px;color:var(--text-2);margin:14px 0 0;max-width:720px;line-height:1.55}
+  .step-visual{margin-top:48px}
 
-  .howit-col{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:1;min-width:0}
-  .howit-node{position:relative;width:84px;height:84px;border-radius:50%;background:radial-gradient(circle at 50% 40%, #1a1d2a, #0c0e15 70%);border:1px solid rgba(167,139,250,.3);display:grid;place-items:center;box-shadow:0 0 0 6px var(--bg), 0 0 32px -8px rgba(167,139,250,.5);transition:transform .25s ease, border-color .25s ease}
-  .howit-col:hover .howit-node{transform:translateY(-2px);border-color:rgba(167,139,250,.55)}
-  .howit-icon{width:30px;height:30px;color:#c4b5fd}
-  .howit-badge{position:absolute;top:-4px;right:-4px;width:24px;height:24px;border-radius:50%;background:#7c3aed;color:#fff;font-family:'Geist',sans-serif;font-size:12px;font-weight:600;display:grid;place-items:center;border:2px solid var(--bg);box-shadow:0 4px 14px -2px rgba(124,58,237,.6)}
-  .howit-title{font-size:22px;font-weight:500;margin:32px 0 10px;letter-spacing:-.012em;color:#fff}
-  .howit-desc{font-size:14.5px;color:var(--text-2);line-height:1.6;margin:0;max-width:300px}
-  .howit-desc strong{color:#c4b5fd;font-weight:500}
-  .howit-tag{margin-top:22px;display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:12.5px;color:var(--text-2);background:rgba(255,255,255,.04);border:1px solid var(--line);padding:7px 12px;border-radius:8px}
-  .howit-tag svg{width:12px;height:12px}
-  .howit-tools{margin-top:22px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:300px}
-  .howit-chip{font-size:12.5px;color:var(--text);background:rgba(255,255,255,.04);border:1px solid var(--line);padding:6px 12px;border-radius:8px;font-family:'Geist',sans-serif}
-  .howit-chip.more{color:var(--text-3);border-style:dashed;background:transparent}
-  @media (max-width:1000px){
-    .howit-grid{grid-template-columns:1fr;gap:48px}
-    .howit-rail{display:none}
+  /* Step 2 form sequential typing */
+  @media (prefers-reduced-motion: no-preference){
+    .form-row .form-val{
+      opacity:0;transform:translateX(-6px);
+      transition:opacity .6s ease, transform .6s ease;
+      transition-delay:calc(var(--ti,0) * 450ms);
+    }
+    .form-row .form-check{
+      transform:scale(0);
+      transition:transform .55s cubic-bezier(.34,1.56,.64,1);
+      transition-delay:calc(var(--ti,0) * 450ms + 220ms);
+    }
+    .form-row.is-typed .form-val{opacity:1;transform:none}
+    .form-row.is-typed .form-check{transform:scale(1)}
   }
 
-  /* ---------- INCLUDED ---------- */
-  .included{padding:80px 0}
-  .inc-grid{display:grid;grid-template-columns:1.1fr 1.4fr;gap:56px;align-items:start}
-  .check-list{display:grid;grid-template-columns:1fr 1fr;gap:14px 28px}
-  .check{display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.05)}
-  .check .ic{
-    width:22px;height:22px;border-radius:7px;background:rgba(139,92,246,.15);
-    display:grid;place-items:center;flex-shrink:0;margin-top:1px;
+  /* Step 1 stage — chip row + profile cards */
+  .step1-stage{position:relative;padding:0 28px 24px;border-radius:18px}
+  .step1-stage::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(60% 50% at 50% 50%, rgba(139,92,246,.05), transparent 70%);
+    pointer-events:none;z-index:0;
   }
-  .check .ic svg{stroke:#c4b5fd}
-  .check b{font-size:14.5px;font-weight:500;color:#fff;display:block}
-  .check span{font-size:13px;color:var(--text-3);margin-top:2px;display:block}
+  .step1-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;position:relative;z-index:2}
+  .step1-caption{
+    margin-top:32px;display:flex;flex-wrap:wrap;align-items:center;
+    justify-content:center;gap:10px 12px;position:relative;z-index:2;
+  }
+  .step1-caption-lbl{
+    font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--text-3);margin-right:4px;
+  }
+  .step1-caption .inc-chip{
+    position:static;transform:none;font-size:12px;
+    padding:6px 12px 6px 9px;background:rgba(15,16,22,.6);
+  }
+  .step1-caption .inc-chip .ck{width:14px;height:14px}
+  .step1-caption .inc-chip .ck svg{width:8px;height:8px}
+  .step1-foot{margin:32px 0 0;font-size:14px;color:var(--text-3);text-align:center}
+  .step1-foot a{color:#cdb8ff;display:inline-flex;align-items:center;gap:4px;border-bottom:1px solid rgba(205,184,255,.3);transition:border-color .15s ease}
+  .step1-foot a:hover{border-bottom-color:#cdb8ff}
+
+  .inc-chip{
+    position:absolute;
+    display:inline-flex;align-items:center;gap:9px;
+    font-size:12.5px;color:#fff;font-weight:500;
+    background:rgba(15,16,22,.92);border:1px solid var(--line);
+    padding:8px 13px 8px 10px;border-radius:999px;
+    backdrop-filter:blur(6px);
+    z-index:3;
+    transform:rotate(var(--r, 0deg));
+    white-space:nowrap;
+    box-shadow:0 8px 24px -12px rgba(0,0,0,.7), 0 0 0 1px rgba(167,139,250,.05);
+  }
+  .inc-chip .ck{
+    width:16px;height:16px;border-radius:50%;
+    background:rgba(34,197,94,.15);
+    display:grid;place-items:center;flex-shrink:0;
+  }
+  .inc-chip .ck svg{width:9px;height:9px;color:#86efac}
+
+  /* Step 2 — customization form */
+  .form-card{
+    max-width:580px;margin:0 auto;
+    background:linear-gradient(180deg, #0e1118, #08090d);
+    border:1px solid var(--line);border-radius:18px;padding:22px 24px 24px;position:relative;overflow:hidden;
+  }
+  .form-card::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 60% at 100% 0%, rgba(139,92,246,.1), transparent 60%);pointer-events:none}
+  .form-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;position:relative;gap:12px}
+  .form-head .form-icon{width:18px;height:18px;color:var(--text-3)}
+  .form-tag{
+    display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.08em;
+    color:#cdb8ff;background:rgba(139,92,246,.13);border:1px solid rgba(167,139,250,.32);
+    padding:5px 11px;border-radius:999px;font-family:'Geist Mono',monospace;font-weight:500;
+  }
+  .form-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:#a78bfa;animation:formPulse 2s ease-in-out infinite}
+  @keyframes formPulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .form-rows{display:flex;flex-direction:column;gap:8px;position:relative}
+  .form-row{
+    display:grid;grid-template-columns:auto 132px 1fr;gap:14px;align-items:center;
+    padding:12px 14px;border-radius:9px;
+    background:rgba(255,255,255,.025);border:1px solid var(--line);
+  }
+  .form-row .form-check{width:15px;height:15px;border-radius:50%;background:rgba(139,92,246,.18);border:1px solid rgba(167,139,250,.35);display:grid;place-items:center;flex-shrink:0}
+  .form-row .form-check svg{width:9px;height:9px;color:#cdb8ff}
+  .form-row .form-key{color:var(--text-3);font-size:11.5px;letter-spacing:.04em;font-family:'Geist Mono',monospace;text-transform:lowercase}
+  .form-row .form-val{color:var(--text);font-size:13.5px;letter-spacing:0}
+  .form-row .form-val b{color:#fff;font-weight:500}
+
+  /* Step 3 — tool grid */
+  .tool-grid{
+    display:grid;grid-template-columns:repeat(4, minmax(0,1fr));gap:1px;
+    background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;
+    max-width:880px;margin:0 auto;
+  }
+  .tool-grid .tool-cell{
+    background:#0b0d13;padding:22px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    font-size:12.5px;color:var(--text-2);transition:background .2s ease;text-align:center;
+  }
+  .tool-grid .tool-cell:hover{background:#11141d}
+  .tool-grid .tool-cell .ico{
+    width:42px;height:42px;border-radius:10px;background:#fff;
+    display:grid;place-items:center;overflow:hidden;
+    box-shadow:0 6px 16px -8px rgba(0,0,0,.6);
+    font-weight:700;color:#0b0d13;font-size:14px;letter-spacing:-.02em;
+  }
+  .tool-grid .tool-cell .ico img{
+    width:30px;height:30px;object-fit:contain;display:block;
+  }
+  .tool-foot{margin-top:24px;font-size:13.5px;color:var(--text-3);max-width:520px}
+
+  @media (max-width:920px){
+    .steps-spine{padding-left:54px}
+    .spine-line{left:28px}
+    .step-node{left:-44px;width:36px;height:36px;font-size:14px;top:30px}
+    .step1-cards{grid-template-columns:1fr;gap:14px}
+    .step1-stage{padding:24px 0 28px}
+    .inc-chip{position:static;display:inline-flex;transform:rotate(0deg);margin:6px 6px 0 0}
+    .step1-chips{display:flex;flex-wrap:wrap;justify-content:center;margin-top:28px}
+    .tool-grid{grid-template-columns:repeat(3,1fr)}
+  }
+  @media (max-width:560px){
+    .tool-grid{grid-template-columns:repeat(2,1fr)}
+  }
 
   /* ---------- PRICING TEASER ---------- */
   .pricing{padding:56px 0 64px;position:relative}
@@ -616,17 +731,8 @@
       <span>RentedIn</span>
     </a>
     <div class="nav-links">
-      <a href="#pricing-link">Pricing</a>
       <a href="#how-link">How it works</a>
-      <div class="menu" tabindex="0">
-        <span>Use cases <svg class="caret" viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <div class="pop">
-          <a href="#use-link"><b>Lead-gen agencies</b><small>Run client outbound at scale</small></a>
-          <a href="#use-link"><b>SaaS &amp; SDR teams</b><small>Past your reps' invite cap</small></a>
-          <a href="#use-link"><b>Founders</b><small>Don't burn your real LinkedIn</small></a>
-        </div>
-      </div>
-      <a href="#faq-link">FAQ</a>
+      <a href="#pricing-link">Pricing</a>
     </div>
     <a class="nav-cta" href="#order">Order now <span class="arr">&rarr;</span></a>
   </nav>
@@ -665,233 +771,154 @@
   </div>
 </section>
 
-<!-- ============ HOW IT WORKS ============ -->
+<!-- ============ HOW IT WORKS — mega section ============ -->
 <section class="how" id="how-link">
   <div class="wrap">
-    <div class="section-head how-head">
-      <span class="eyebrow"><span class="dot"></span>How it works</span>
-      <h2 class="section-title">Three steps. <em>You're sending in 24&nbsp;hours.</em></h2>
-      <p class="section-sub">Order today, run campaigns tomorrow.</p>
-    </div>
+    <div class="steps-spine">
+      <span class="spine-line" aria-hidden="true"></span>
 
-    <div class="howit-grid">
-      <div class="howit-rail" aria-hidden="true">
-        <span class="howit-pulse"></span>
-        <span class="howit-pulse p2"></span>
-      </div>
+      <!-- STEP 1 — Pick the profiles -->
+      <article class="step">
+        <span class="step-node" aria-hidden="true">1</span>
+        <h3 class="step-title">Rent a profile</h3>
+        <p class="step-desc">Hire a LinkedIn rep that's fully warmed up, and ready to send from day one.</p>
 
-      <div class="howit-col">
-        <div class="howit-node">
-          <span class="howit-badge">1</span>
-          <svg class="howit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18"/><path d="M7 15h4"/></svg>
-        </div>
-        <h3 class="howit-title">Tell us what you need</h3>
-        <p class="howit-desc">Quantity, geo, persona. <strong>Under 2&nbsp;minutes</strong> to place your order.</p>
-        <span class="howit-tag"><svg viewBox="0 0 14 14" fill="none"><path d="M7.5 1.5L3 8h3.5L6 12.5L11 6H7.5z" fill="#fbbf24"/></svg>~2 min</span>
-      </div>
+        <div class="step-visual">
+          <div class="step1-stage">
+            <div class="step1-cards">
+              <article class="li-card">
+                <div class="li-banner"></div>
+                <div class="li-avatar"><img src="images/personas/marcus.jpg" alt="Portrait of Marcus Hale" loading="lazy"/></div>
+                <div class="li-body">
+                  <div class="li-head">
+                    <div class="li-name">Marcus Hale</div>
+                    <span class="li-conn">500+ connections</span>
+                  </div>
+                  <div class="li-role">Senior Account Executive at <b>CloudPivot</b></div>
+                  <div class="li-loc">United Kingdom &middot; B2B SaaS</div>
+                </div>
+              </article>
 
-      <div class="howit-col">
-        <div class="howit-node">
-          <span class="howit-badge">2</span>
-          <svg class="howit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l8 4v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10v-5l8-4z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg>
-        </div>
-        <h3 class="howit-title">We deliver the package</h3>
-        <p class="howit-desc"><strong>Pre-warmed 90 days. 500+ real connections.</strong> Comes with credentials, proxy, and anti-detect browser profile.</p>
-        <span class="howit-tag"><svg viewBox="0 0 14 14" fill="none"><path d="M7.5 1.5L3 8h3.5L6 12.5L11 6H7.5z" fill="#fbbf24"/></svg>&lt; 24h</span>
-      </div>
+              <article class="li-card">
+                <div class="li-banner"></div>
+                <div class="li-avatar"><img src="images/personas/sophie.jpg" alt="Portrait of Sophie Laurent" loading="lazy"/></div>
+                <div class="li-body">
+                  <div class="li-head">
+                    <div class="li-name">Sophie Laurent</div>
+                    <span class="li-conn">500+ connections</span>
+                  </div>
+                  <div class="li-role">Head of Talent Acquisition at <b>TalentForge</b></div>
+                  <div class="li-loc">France &middot; Recruiting</div>
+                </div>
+              </article>
 
-      <div class="howit-col">
-        <div class="howit-node">
-          <span class="howit-badge">3</span>
-          <svg class="howit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" fill="currentColor" stroke="none"/></svg>
-        </div>
-        <h3 class="howit-title">Plug into your stack</h3>
-        <p class="howit-desc">Works with whatever you already use.</p>
-        <div class="howit-tools">
-          <span class="howit-chip">HeyReach</span>
-          <span class="howit-chip">Expandi</span>
-          <span class="howit-chip">Waalaxy</span>
-          <span class="howit-chip">Lemlist</span>
-          <span class="howit-chip more">+ more</span>
-        </div>
-      </div>
-    </div>
+              <article class="li-card">
+                <div class="li-banner"></div>
+                <div class="li-avatar"><img src="images/personas/pieter.jpg" alt="Portrait of Pieter Janssen" loading="lazy"/></div>
+                <div class="li-body">
+                  <div class="li-head">
+                    <div class="li-name">Pieter Janssen</div>
+                    <span class="li-conn">500+ connections</span>
+                  </div>
+                  <div class="li-role">Growth Marketing Manager at <b>NorthBeam</b></div>
+                  <div class="li-loc">Netherlands &middot; DTC / e-commerce</div>
+                </div>
+              </article>
 
-  </div>
-</section>
+              <article class="li-card">
+                <div class="li-banner"></div>
+                <div class="li-avatar"><img src="images/personas/anna.jpg" alt="Portrait of Anna Schneider" loading="lazy"/></div>
+                <div class="li-body">
+                  <div class="li-head">
+                    <div class="li-name">Anna Schneider</div>
+                    <span class="li-conn">500+ connections</span>
+                  </div>
+                  <div class="li-role">Head of Partnerships at <b>LedgerWise</b></div>
+                  <div class="li-loc">Germany &middot; Fintech</div>
+                </div>
+              </article>
 
-<!-- ============ CATALOG ============ -->
-<section class="catalog" id="catalog">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow"><span class="dot"></span>The catalog</span>
-      <h2 class="section-title">Meet the personas <em>you can rent.</em></h2>
-      <p class="section-sub">A sample from our active roster. New personas are added every month &mdash; if you don't see your fit, we'll build one.</p>
-    </div>
+              <article class="li-card">
+                <div class="li-banner"></div>
+                <div class="li-avatar"><img src="images/personas/lena.jpg" alt="Portrait of Lena Bergstroem" loading="lazy"/></div>
+                <div class="li-body">
+                  <div class="li-head">
+                    <div class="li-name">Lena Bergstr&ouml;m</div>
+                    <span class="li-conn">500+ connections</span>
+                  </div>
+                  <div class="li-role">Director of Demand Gen at <b>NorthGate</b></div>
+                  <div class="li-loc">Sweden &middot; Cybersecurity</div>
+                </div>
+              </article>
 
-    <div class="cat-grid">
-      <!-- 1. Marcus Hale -->
-      <article class="li-card">
-        <div class="li-banner"></div>
-        <div class="li-avatar"><img src="images/personas/marcus.jpg" alt="Portrait of Marcus Hale" loading="lazy"/></div>
-        <div class="li-body">
-          <div class="li-name">Marcus Hale</div>
-          <div class="li-role">Senior Account Executive at <b>CloudPivot</b></div>
-          <div class="li-loc">London, United Kingdom &middot; B2B SaaS</div>
-        </div>
-        <div class="li-foot">
-          <span class="li-pill uvp"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5.5 4h-.8a2.7 2.7 0 1 0 0 5.4h1.6M8 10h.7a2.7 2.7 0 1 0 0-5.4H7.1M5 7h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>500+ connections</span>
-          <span class="li-pill go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7.5 1.5L3 8h3.5L6 12.5L11 6H7.5z" fill="currentColor"/></svg>Activation &lt; 24h</span>
-        </div>
-        <div class="li-annot m1"><span class="lab">Connections with<br/>real people</span></div>
-      </article>
+              <article class="li-card">
+                <div class="li-banner"></div>
+                <div class="li-avatar"><img src="images/personas/extra-male.jpg" alt="Portrait of James Whitaker" loading="lazy"/></div>
+                <div class="li-body">
+                  <div class="li-head">
+                    <div class="li-name">James Whitaker</div>
+                    <span class="li-conn">500+ connections</span>
+                  </div>
+                  <div class="li-role">VP of Strategic Accounts at <b>HelixCare</b></div>
+                  <div class="li-loc">United States &middot; Healthcare</div>
+                </div>
+              </article>
+            </div>
 
-      <!-- 2. Sophie Laurent -->
-      <article class="li-card">
-        <div class="li-banner"></div>
-        <div class="li-avatar"><img src="images/personas/sophie.jpg" alt="Portrait of Sophie Laurent" loading="lazy"/></div>
-        <div class="li-body">
-          <div class="li-name">Sophie Laurent</div>
-          <div class="li-role">Head of Talent Acquisition at <b>TalentForge</b></div>
-          <div class="li-loc">Paris, France &middot; Recruiting</div>
-        </div>
-        <div class="li-foot">
-          <span class="li-pill uvp"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5.5 4h-.8a2.7 2.7 0 1 0 0 5.4h1.6M8 10h.7a2.7 2.7 0 1 0 0-5.4H7.1M5 7h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>500+ connections</span>
-          <span class="li-pill go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7.5 1.5L3 8h3.5L6 12.5L11 6H7.5z" fill="currentColor"/></svg>Activation &lt; 24h</span>
-        </div>
-        <div class="li-annot s1"><span class="lab">Optimized for<br/>LinkedIn outreach</span></div>
-      </article>
+            <div class="step1-caption">
+              <span class="step1-caption-lbl">Every profile</span>
+              <span class="inc-chip"><span class="ck"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>60+ days warm up</span>
+              <span class="inc-chip"><span class="ck"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Real human connections</span>
+              <span class="inc-chip"><span class="ck"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Hand-built persona</span>
+              <span class="inc-chip"><span class="ck"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Optimized for outreach</span>
+            </div>
 
-      <!-- 3. Pieter Janssen -->
-      <article class="li-card">
-        <div class="li-banner"></div>
-        <div class="li-avatar"><img src="images/personas/pieter.jpg" alt="Portrait of Pieter Janssen" loading="lazy"/></div>
-        <div class="li-body">
-          <div class="li-name">Pieter Janssen</div>
-          <div class="li-role">Growth Marketing Manager at <b>NorthBeam Goods</b></div>
-          <div class="li-loc">Amsterdam, Netherlands &middot; DTC / e-commerce</div>
-        </div>
-        <div class="li-foot">
-          <span class="li-pill uvp"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5.5 4h-.8a2.7 2.7 0 1 0 0 5.4h1.6M8 10h.7a2.7 2.7 0 1 0 0-5.4H7.1M5 7h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>500+ connections</span>
-          <span class="li-pill go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7.5 1.5L3 8h3.5L6 12.5L11 6H7.5z" fill="currentColor"/></svg>Activation &lt; 24h</span>
-        </div>
-        <div class="li-annot p1"><span class="lab">In your preferred<br/>location</span></div>
-      </article>
-
-      <!-- 4. Lena Hofmann -->
-      <article class="li-card">
-        <div class="li-banner"></div>
-        <div class="li-avatar"><img src="images/personas/lena.jpg" alt="Portrait of Lena Hofmann" loading="lazy"/></div>
-        <div class="li-body">
-          <div class="li-name">Lena Hofmann</div>
-          <div class="li-role">Senior BDR at <b>FinStack</b></div>
-          <div class="li-loc">Berlin, Germany &middot; Fintech</div>
-        </div>
-        <div class="li-foot">
-          <span class="li-pill uvp"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5.5 4h-.8a2.7 2.7 0 1 0 0 5.4h1.6M8 10h.7a2.7 2.7 0 1 0 0-5.4H7.1M5 7h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>500+ connections</span>
-          <span class="li-pill go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7.5 1.5L3 8h3.5L6 12.5L11 6H7.5z" fill="currentColor"/></svg>Activation &lt; 24h</span>
-        </div>
-      </article>
-
-      <!-- 5. Camille Mercier -->
-      <article class="li-card">
-        <div class="li-banner"></div>
-        <div class="li-avatar ph">CM</div>
-        <div class="li-body">
-          <div class="li-name">Camille Mercier</div>
-          <div class="li-role">Brand Partnerships Lead at <b>Atelier Vingt</b></div>
-          <div class="li-loc">Lyon, France &middot; Creative Agency</div>
-        </div>
-        <div class="li-foot">
-          <span class="li-pill uvp"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5.5 4h-.8a2.7 2.7 0 1 0 0 5.4h1.6M8 10h.7a2.7 2.7 0 1 0 0-5.4H7.1M5 7h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>500+ connections</span>
-          <span class="li-pill go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7.5 1.5L3 8h3.5L6 12.5L11 6H7.5z" fill="currentColor"/></svg>Activation &lt; 24h</span>
-        </div>
-      </article>
-
-      <!-- 6. Anna Weber -->
-      <article class="li-card">
-        <div class="li-banner"></div>
-        <div class="li-avatar"><img src="images/personas/anna.jpg" alt="Portrait of Anna Weber" loading="lazy"/></div>
-        <div class="li-body">
-          <div class="li-name">Anna Weber</div>
-          <div class="li-role">Senior Consultant at <b>NorthSpur Advisory</b></div>
-          <div class="li-loc">Munich, Germany &middot; B2B Consulting</div>
-        </div>
-        <div class="li-foot">
-          <span class="li-pill uvp"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5.5 4h-.8a2.7 2.7 0 1 0 0 5.4h1.6M8 10h.7a2.7 2.7 0 1 0 0-5.4H7.1M5 7h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>500+ connections</span>
-          <span class="li-pill go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7.5 1.5L3 8h3.5L6 12.5L11 6H7.5z" fill="currentColor"/></svg>Activation &lt; 24h</span>
-        </div>
-      </article>
-    </div>
-
-    <p class="cat-foot">Need a different region, language, or industry? Tell us what you're looking for. <a href="#contact">Get in touch &rarr;</a></p>
-  </div>
-</section>
-
-<!-- ============ USE CASES ============ -->
-<section class="uc" id="use-link">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow"><span class="dot"></span>Use cases</span>
-      <h2 class="section-title">Built for the way you <em>do outbound.</em></h2>
-    </div>
-
-    <div class="uc-grid">
-      <div class="uc-card">
-        <div class="uc-illu">
-          <div class="illu-stack">
-            <div class="row"><span class="d"></span>Client A &middot; 4 profiles &middot; HeyReach</div>
-            <div class="row b"><span class="d"></span>Client B &middot; 2 profiles &middot; Expandi</div>
-            <div class="row c"><span class="d"></span>Client C &middot; 6 profiles &middot; Waalaxy</div>
-            <div class="row"><span class="d"></span>Client D &middot; 3 profiles &middot; LGM</div>
           </div>
         </div>
-        <h3>Lead-gen agencies</h3>
-        <p>Run client outbound at scale. Volume pricing from $80/profile. Tag profiles by client and campaign. Tool freedom across every account.</p>
-        <a class="uc-link" href="#use-agencies">See agency setup <span class="arr">&rarr;</span></a>
-      </div>
-      <div class="uc-card">
-        <div class="uc-illu">
-          <div class="illu-bars">
-            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </article>
+
+      <!-- STEP 2 — Fill out the customization form -->
+      <article class="step">
+        <span class="step-node" aria-hidden="true">2</span>
+        <h3 class="step-title">Fill out the customization form</h3>
+        <p class="step-desc">Tell us the company, the role, and the story. We build the profile to match before you ever log in.</p>
+
+        <div class="step-visual">
+          <div class="form-card">
+            <div class="form-head">
+              <svg class="form-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3" width="11" height="10" rx="1.5"/><path d="M5 6.5h6M5 9h5M5 11.5h3"/></svg>
+              <span class="form-tag">Customization form</span>
+            </div>
+            <div class="form-rows">
+              <div class="form-row"><span class="form-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="form-key">company</span><span class="form-val"><b>CloudPivot</b></span></div>
+              <div class="form-row"><span class="form-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="form-key">position</span><span class="form-val"><b>Senior Account Executive</b></span></div>
+              <div class="form-row"><span class="form-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="form-key">headline</span><span class="form-val">Helping mid-market SaaS hit pipeline goals</span></div>
+              <div class="form-row"><span class="form-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="form-key">about</span><span class="form-val">12 years across <b>Salesforce</b>, Outreach, ZoomInfo</span></div>
+              <div class="form-row"><span class="form-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="form-key">experience</span><span class="form-val"><b>5 prior roles</b> &middot; 12 years in B2B SaaS</span></div>
+            </div>
           </div>
         </div>
-        <h3>B2B SaaS &amp; SDR teams</h3>
-        <p>Scale outbound past your SDRs' personal LinkedIn limits. Plug into HeyReach, Expandi, Outreach, Salesloft.</p>
-        <a class="uc-link" href="#use-saas">See SaaS setup <span class="arr">&rarr;</span></a>
-      </div>
-      <div class="uc-card">
-        <div class="uc-illu">
-          <div class="illu-circle"></div>
-        </div>
-        <h3>Founders</h3>
-        <p>Test outbound without burning your real LinkedIn profile. Start with one profile, scale when it works.</p>
-        <a class="uc-link" href="#use-founders">See founder setup <span class="arr">&rarr;</span></a>
-      </div>
-    </div>
-  </div>
-</section>
+      </article>
 
-<!-- ============ INCLUDED ============ -->
-<section class="included">
-  <div class="wrap">
-    <div class="inc-grid">
-      <div>
-        <span class="eyebrow"><span class="dot"></span>What's included</span>
-        <h2 class="section-title">Every <em>$100/month</em> profile includes:</h2>
-        <p class="section-sub">No tiers, no upgrades, no add-ons. The same complete kit ships with every profile we deliver.</p>
-      </div>
-      <div class="check-list">
-        <div class="check"><div class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Hand-warmed for 90+ days</b><span>Real connection requests, profile views, comments</span></div></div>
-        <div class="check"><div class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>500+ real LinkedIn connections</b><span>Sourced manually from your target ICP</span></div></div>
-        <div class="check"><div class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Full persona</b><span>Photo, name, headline, work history, education, skills, certifications</span></div></div>
-        <div class="check"><div class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Dedicated residential IP / proxy</b><span>One profile, one IP &mdash; never shared</span></div></div>
-        <div class="check"><div class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Anti-detect browser profile</b><span>Preconfigured fingerprint, ready to launch</span></div></div>
-        <div class="check"><div class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>2FA setup transferred to you</b><span>You hold the keys from day one</span></div></div>
-        <div class="check"><div class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Compatible with any automation tool</b><span>HeyReach, Expandi, Waalaxy, anything</span></div></div>
-        <div class="check"><div class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Unconditional 24h replacement</b><span>If anything happens to the profile</span></div></div>
-        <div class="check"><div class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Email + Slack support, 24/5</b><span>Real humans, response in hours</span></div></div>
-      </div>
+      <!-- STEP 3 — Scale your LinkedIn outreach -->
+      <article class="step">
+        <span class="step-node" aria-hidden="true">3</span>
+        <h3 class="step-title">Scale your LinkedIn outreach</h3>
+        <p class="step-desc">Go past the LinkedIn limits and start more conversations faster with the tools you already use.</p>
+
+        <div class="step-visual">
+          <div class="tool-grid">
+            <div class="tool-cell"><div class="ico"><img src="images/tools/heyreach.png" alt="HeyReach logo"/></div>HeyReach</div>
+            <div class="tool-cell"><div class="ico"><img src="images/tools/expandi.png" alt="Expandi logo"/></div>Expandi</div>
+            <div class="tool-cell"><div class="ico"><img src="images/tools/waalaxy.png" alt="Waalaxy logo"/></div>Waalaxy</div>
+            <div class="tool-cell"><div class="ico"><img src="images/tools/lagrowthmachine.png" alt="La Growth Machine logo"/></div>La Growth Machine</div>
+            <div class="tool-cell"><div class="ico"><img src="images/tools/lemlist.png" alt="Lemlist logo"/></div>Lemlist</div>
+            <div class="tool-cell"><div class="ico"><img src="images/tools/dripify.png" alt="Dripify logo"/></div>Dripify</div>
+            <div class="tool-cell"><div class="ico"><img src="images/tools/phantombuster.png" alt="PhantomBuster logo"/></div>PhantomBuster</div>
+            <div class="tool-cell"><div class="ico"><img src="images/tools/skylead.png" alt="Skylead logo"/></div>Skylead</div>
+          </div>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -992,29 +1019,6 @@
 })();
 </script>
 
-<!-- ============ INTEGRATIONS ============ -->
-<section class="integ">
-  <div class="wrap">
-    <div class="section-head center">
-      <span class="eyebrow"><span class="dot"></span>Integrations</span>
-      <h2 class="section-title">Works with <em>your stack.</em></h2>
-    </div>
-
-    <div class="integ-grid">
-      <div class="integ-cell"><div class="ico">HR</div>HeyReach</div>
-      <div class="integ-cell"><div class="ico">Ex</div>Expandi</div>
-      <div class="integ-cell"><div class="ico">Wa</div>Waalaxy</div>
-      <div class="integ-cell"><div class="ico">LG</div>La Growth Machine</div>
-      <div class="integ-cell"><div class="ico">Le</div>Lemlist</div>
-      <div class="integ-cell"><div class="ico">Dr</div>Dripify</div>
-      <div class="integ-cell"><div class="ico">Ph</div>PhantomBuster</div>
-      <div class="integ-cell"><div class="ico">Sk</div>Skylead</div>
-      <div class="integ-cell"><div class="ico">Lh</div>Linked Helper</div>
-    </div>
-    <p class="integ-foot">Not on this list? It works anyway. We don't restrict tools &mdash; bring whatever you use.</p>
-  </div>
-</section>
-
 <!-- ============ GUARANTEE ============ -->
 <section class="guar" id="guarantee">
   <div class="wrap">
@@ -1033,51 +1037,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FAQ ============ -->
-<section class="faq" id="faq-link">
-  <div class="wrap">
-    <div class="section-head center">
-      <span class="eyebrow"><span class="dot"></span>FAQ</span>
-      <h2 class="section-title">The questions <em>buyers actually ask.</em></h2>
-    </div>
-
-    <div class="faq-grid">
-      <details class="q" open>
-        <summary>Is this against LinkedIn's terms? <span class="plus">+</span></summary>
-        <div class="a">Mass outbound and automation are against LinkedIn's ToS for any account, verified or not. The risk is account loss, which is exactly what our replacement guarantee covers.</div>
-      </details>
-      <details class="q">
-        <summary>Aren't &ldquo;ID-verified&rdquo; profiles safer? <span class="plus">+</span></summary>
-        <div class="a"><strong>Short answer: no.</strong> Most ID-verified rental profiles on the market today were verified using fake or stolen ID documents &mdash; that's identity-document fraud, far more serious legal exposure than anything a purpose-built profile creates. The few that come from real consenting account-owners are expensive, slow to replace when LinkedIn challenges them, and locked to whatever identity they came with. Our personas are fictional, hand-built, and hand-warmed. No real identities involved &mdash; and replaced in 24 hours.</div>
-      </details>
-      <details class="q">
-        <summary>Will my profile get banned? <span class="plus">+</span></summary>
-        <div class="a">Eventually, some profiles will. We size pricing and our SLA assuming this. Average lifespan in our customer base is several months when used inside reasonable limits.</div>
-      </details>
-      <details class="q">
-        <summary>Can I use my own automation tool? <span class="plus">+</span></summary>
-        <div class="a">Yes. Any tool. We don't restrict.</div>
-      </details>
-      <details class="q">
-        <summary>How fast is replacement? <span class="plus">+</span></summary>
-        <div class="a">24 hours. No audit, no condition.</div>
-      </details>
-      <details class="q">
-        <summary>Do you offer Sales Navigator? <span class="plus">+</span></summary>
-        <div class="a">Available on request, no surprise add-on charge.</div>
-      </details>
-      <details class="q">
-        <summary>What's the contract? <span class="plus">+</span></summary>
-        <div class="a">Month-to-month. Cancel anytime, no notice period.</div>
-      </details>
-    </div>
-
-    <div class="faq-foot">
-      <a class="btn-link" href="#faq-page">See full FAQ <span class="arr">&rarr;</span></a>
     </div>
   </div>
 </section>
@@ -1194,6 +1153,30 @@
     tx = ANCHOR_X; ty = ANCHOR_Y;
     if(!raf) raf = requestAnimationFrame(tick);
   });
+})();
+
+// Step 2 form — sequential typing on viewport entry
+(function(){
+  var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var formRows = document.querySelectorAll('.form-rows .form-row');
+  formRows.forEach(function(el, i){ el.style.setProperty('--ti', i); });
+
+  if(prefersReduced || !('IntersectionObserver' in window)){
+    formRows.forEach(function(el){ el.classList.add('is-typed'); });
+    return;
+  }
+
+  var formStep = document.querySelector('.form-card');
+  if(!formStep) return;
+  var stepEl = formStep.closest('.step') || formStep;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      stepEl.querySelectorAll('.form-row').forEach(function(el){ el.classList.add('is-typed'); });
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: '0px 0px -15% 0px', threshold: 0.2 });
+  io.observe(stepEl);
 })();
 
 // section reveal on scroll
