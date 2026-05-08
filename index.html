@@ -1,0 +1,1142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RentedIn — LinkedIn profiles that scale your outreach</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Fraunces:ital,wght@0,300..900;1,300..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Space+Grotesk:wght@300..700&family=DM+Serif+Display:ital@0;1&family=Manrope:wght@300..800&family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=JetBrains+Mono:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,300..700;1,300..700&family=Caveat:ital,wght@0,500..700;1,500..700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#06070a;
+    --bg-2:#0b0d12;
+    --panel:#101218;
+    --panel-2:#15171f;
+    --line:#1e212b;
+    --line-2:#2a2e3b;
+    --text:#e9eaee;
+    --text-2:#a8acb8;
+    --text-3:#6f7382;
+    --accent:#8b5cf6;
+    --accent-2:#a78bfa;
+    --accent-3:#6d28d9;
+    --warn:#f59e0b;
+    --good:#22c55e;
+    --bad:#ef4444;
+    --radius:14px;
+    --max:1240px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'Geist', ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    font-feature-settings:"ss01","ss02","cv11";
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  ::selection{background:rgba(139,92,246,.45);color:#fff}
+
+  /* ---------- LAYOUT ---------- */
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px;width:100%}
+  section{position:relative}
+
+  /* ---------- NAV ---------- */
+  .nav-wrap{position:sticky;top:14px;z-index:60;display:flex;justify-content:center;padding:0 16px;pointer-events:none}
+  .nav{
+    pointer-events:auto;
+    display:flex;align-items:center;gap:6px;
+    padding:8px 8px 8px 18px;
+    background:rgba(14,15,20,.72);
+    border:1px solid rgba(255,255,255,.07);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border-radius:999px;
+    box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 24px 60px -28px rgba(0,0,0,.7);
+    width:100%;max-width:1100px;
+  }
+  .brand{display:flex;align-items:center;gap:9px;font-weight:600;letter-spacing:-.01em;font-size:15px;padding-right:14px;border-right:1px solid rgba(255,255,255,.06);margin-right:6px}
+  .brand-mark{width:22px;height:22px;border-radius:6px;background:
+    radial-gradient(120% 120% at 20% 10%, #c4b5fd 0%, #8b5cf6 38%, #4c1d95 100%);
+    box-shadow:0 0 0 1px rgba(255,255,255,.12) inset, 0 6px 18px -6px rgba(139,92,246,.6);
+    position:relative;
+  }
+  .brand-mark::after{content:"";position:absolute;inset:4px;border-radius:3px;background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,0));mix-blend-mode:overlay}
+  .nav-links{display:flex;gap:2px;align-items:center;flex:1}
+  .nav-links a, .nav-links .menu{
+    font-size:13.5px;color:var(--text-2);
+    padding:8px 12px;border-radius:999px;
+    display:inline-flex;align-items:center;gap:6px;cursor:pointer;
+    transition:color .15s ease, background .15s ease;
+  }
+  .nav-links a:hover, .nav-links .menu:hover{color:var(--text);background:rgba(255,255,255,.05)}
+  .menu .caret{width:10px;height:10px;opacity:.7}
+  .menu{position:relative}
+  .menu .pop{
+    position:absolute;top:calc(100% + 10px);left:0;min-width:240px;
+    background:rgba(15,16,22,.96);border:1px solid var(--line);border-radius:14px;
+    padding:8px;box-shadow:0 24px 60px -20px rgba(0,0,0,.7);
+    opacity:0;pointer-events:none;transform:translateY(-4px);
+    transition:opacity .15s ease, transform .15s ease;
+  }
+  .menu:hover .pop{opacity:1;pointer-events:auto;transform:translateY(0)}
+  .pop a{display:flex;flex-direction:column;padding:10px 12px;border-radius:10px;color:var(--text)}
+  .pop a:hover{background:rgba(255,255,255,.05)}
+  .pop a small{color:var(--text-3);font-size:12px;margin-top:2px}
+  .nav-cta{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:9px 16px;border-radius:999px;
+    background:#fff;color:#0b0d12;font-size:13.5px;font-weight:500;
+    border:1px solid rgba(0,0,0,.06);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .nav-cta:hover{transform:translateY(-1px);box-shadow:0 10px 24px -10px rgba(255,255,255,.25)}
+  .nav-cta .arr{display:inline-block;transition:transform .2s ease}
+  .nav-cta:hover .arr{transform:translateX(2px)}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:72px 0 60px;position:relative;overflow:hidden}
+  .hero-bg{
+    position:absolute;inset:-80px 0 0 0;pointer-events:none;z-index:0;
+  }
+  .hero-bg::before{
+    content:"";position:absolute;left:50%;top:120px;transform:translateX(-50%);
+    width:1200px;height:600px;border-radius:50%;
+    background:
+      radial-gradient(closest-side, rgba(139,92,246,.55), rgba(139,92,246,0) 70%);
+    filter:blur(20px);opacity:.7;
+  }
+  .hero-bg::after{
+    content:"";position:absolute;left:50%;top:280px;transform:translateX(-50%);
+    width:780px;height:380px;border-radius:50%;
+    background:radial-gradient(closest-side, rgba(167,139,250,.55), transparent 70%);
+    filter:blur(40px);
+  }
+  .hero-grid{
+    position:absolute;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px);
+    background-size:64px 64px;
+    mask-image: radial-gradient(ellipse 70% 50% at 50% 30%, black 30%, transparent 70%);
+  }
+  .hero-arc{
+    position:absolute;left:50%;bottom:-220px;transform:translateX(-50%);
+    width:1800px;height:1800px;border-radius:50%;
+    background:radial-gradient(circle at 50% 50%, transparent 49.6%, rgba(255,255,255,.18) 49.8%, transparent 50.2%);
+    z-index:1;pointer-events:none;
+    mask-image:linear-gradient(180deg, transparent 0%, black 35%, black 100%);
+  }
+  .hero-inner{position:relative;z-index:2;text-align:center;padding-top:48px}
+  .badge{
+    display:inline-flex;align-items:center;gap:10px;padding:6px 6px 6px 14px;
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+    border-radius:999px;font-size:13px;color:var(--text-2);
+    backdrop-filter:blur(8px);
+  }
+  .badge .tag{
+    background:rgba(139,92,246,.18);color:#c4b5fd;font-size:11px;
+    padding:3px 8px;border-radius:999px;font-weight:600;letter-spacing:.04em;
+  }
+  .badge .arr{opacity:.6;margin-left:4px}
+  h1.display{
+    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    font-weight: 500;
+    letter-spacing: -.03em;
+    font-size:clamp(44px, 6.4vw, 92px);
+    line-height:1.02;
+    margin:22px auto 0;max-width:1040px;
+    color:#f4f4f7;
+  }
+  h1.display em{font-style:normal;color:#cdb8ff;font-weight:inherit}
+  h1.display .price{
+    font-family:'Geist', sans-serif;font-weight:400;font-style:normal;
+    color:#fff;letter-spacing:-.03em;
+  }
+  .hero-sub{
+    margin:26px auto 0;max-width:680px;
+    font-size:17px;color:var(--text-2);line-height:1.55;
+  }
+  .cta-row{margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:14px 22px;border-radius:999px;font-size:14.5px;font-weight:500;
+    border:1px solid transparent;cursor:pointer;
+    transition:transform .15s ease, box-shadow .2s ease, background .15s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:#fff;color:#0b0d12;
+    box-shadow:0 0 0 1px rgba(255,255,255,.06), 0 8px 28px -8px rgba(255,255,255,.25);
+  }
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 0 0 1px rgba(255,255,255,.1), 0 16px 40px -10px rgba(255,255,255,.35)}
+  .btn-primary .price-pill{
+    background:#0b0d12;color:#fff;font-size:12px;padding:3px 8px;border-radius:999px;font-weight:500;
+  }
+  .btn-ghost{background:rgba(255,255,255,.04);color:var(--text);border-color:rgba(255,255,255,.1)}
+  .btn-ghost:hover{background:rgba(255,255,255,.08)}
+  .btn-link{
+    color:var(--text);font-size:14.5px;display:inline-flex;align-items:center;gap:8px;
+    padding:14px 8px;
+  }
+  .btn-link .arr{transition:transform .2s ease}
+  .btn-link:hover .arr{transform:translateX(3px)}
+  .micro{margin-top:18px;font-size:13px;color:var(--text-3);display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+  .micro span{display:inline-flex;align-items:center;gap:6px}
+  .micro .dot{width:4px;height:4px;border-radius:50%;background:var(--text-3)}
+
+  /* ---------- CATALOG ---------- */
+  .catalog{padding:96px 0 80px;position:relative}
+  .catalog .wrap{position:relative;z-index:1}
+  .catalog .section-head{margin-bottom:40px;display:flex;flex-direction:column;align-items:center;text-align:center}
+  .catalog .section-head h2{margin-left:auto;margin-right:auto}
+  .catalog .section-head .section-sub{margin-left:auto;margin-right:auto;max-width:680px}
+
+  .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .li-card{position:relative;background:#0e1118;border:1px solid var(--line);border-radius:14px;display:flex;flex-direction:column;transition:border-color .2s ease,transform .25s ease,box-shadow .25s ease}
+  .li-card:hover{border-color:rgba(139,92,246,.35);transform:translateY(-2px);box-shadow:0 24px 60px -30px rgba(76,29,149,.55)}
+  .li-banner{height:72px;width:100%;background:linear-gradient(135deg,#161827 0%,#1e1a32 60%,#231640 100%);border-top-left-radius:14px;border-top-right-radius:14px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+  .li-banner::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 100% 0%,rgba(139,92,246,.18),transparent 60%);pointer-events:none}
+  .li-avatar{position:absolute;left:20px;top:36px;width:72px;height:72px;border-radius:50%;border:3px solid #0e1118;background:#1a1d27;overflow:hidden;z-index:2}
+  .li-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+  .li-avatar.ph{display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#c4b5fd,#4c1d95 70%,#1e1145);font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:30px;color:rgba(255,255,255,.9);letter-spacing:-.02em}
+  .li-body{padding:50px 22px 0;display:flex;flex-direction:column}
+  .li-name{font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:22px;color:#fff;letter-spacing:-.018em;line-height:1.15}
+  .li-role{font-size:14.5px;color:var(--text);margin-top:6px;line-height:1.45}
+  .li-role b{font-weight:600;color:#fff}
+  .li-loc{font-size:13px;color:var(--text-3);margin-top:5px;line-height:1.4}
+  .li-foot{margin:22px 0 0;padding:14px 22px 18px;border-top:1px solid var(--line);display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .li-pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2)}
+  .li-pill svg{flex-shrink:0;opacity:.7}
+  .li-pill.go{color:#86efac}
+  .li-pill.go svg{opacity:1;color:#fbbf24}
+  .li-pill.uvp{color:#e9d5ff;font-weight:600;font-size:13.5px;background:rgba(139,92,246,.13);border:1px solid rgba(167,139,250,.32);padding:5px 11px;border-radius:999px}
+  .li-pill.uvp svg{opacity:1;color:#cdb8ff}
+  .li-annot{position:absolute;inset:0;pointer-events:none;z-index:5}
+  .li-annot .lab{position:absolute;top:96px;right:16px;max-width:158px;text-align:right;font-family:'Caveat',cursive;font-style:italic;font-weight:600;font-size:18px;line-height:1.05;color:#cdb8ff;display:inline-block}
+  .li-annot.m1 .lab{transform:rotate(-2deg)}
+  .li-annot.s1 .lab{transform:rotate(2deg)}
+  .li-annot.p1 .lab{transform:rotate(-1.5deg)}
+
+  .cat-foot{
+    margin-top:32px;display:flex;justify-content:center;align-items:center;
+    gap:6px;font-size:14px;color:var(--text-3);text-align:center;flex-wrap:wrap;
+  }
+  .cat-foot a{
+    color:#cdb8ff;display:inline-flex;align-items:center;gap:4px;
+    border-bottom:1px solid rgba(205,184,255,.3);transition:border-color .15s ease;
+  }
+  .cat-foot a:hover{border-bottom-color:#cdb8ff}
+
+  /* ---------- SECTION shared ---------- */
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;font-size:12px;
+    text-transform:uppercase;letter-spacing:.16em;color:var(--accent-2);
+    font-weight:500;
+  }
+  .eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
+  h2.section-title{
+    font-family:'Bricolage Grotesque', system-ui, sans-serif;font-weight:500;
+    font-size:clamp(32px,4vw,56px);letter-spacing:-.025em;line-height:1.05;
+    color:#fff;margin:14px 0 0;max-width:780px;
+  }
+  h2.section-title em{font-style:italic;color:#cdb8ff}
+  .section-sub{font-size:16px;color:var(--text-2);margin:18px 0 0;max-width:640px;line-height:1.6}
+  .section-head{margin-bottom:48px}
+  .section-head.center{text-align:center;display:flex;flex-direction:column;align-items:center}
+  .section-head.center h2, .section-head.center .section-sub{margin-left:auto;margin-right:auto}
+
+  /* ---------- VALUE / CALCULATOR ---------- */
+  .calc{padding:80px 0}
+  .calc-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:start}
+  .calc-body{padding-top:48px}
+  .calc-body p{color:var(--text-2);font-size:16px;line-height:1.7;margin:0 0 16px}
+  .calc-body p strong{color:#fff;font-weight:500}
+  .calc-card{
+    margin-top:48px;background:linear-gradient(180deg,#0d1018,#090b10);
+    border:1px solid var(--line);border-radius:18px;padding:34px 36px 30px;position:relative;overflow:hidden;
+  }
+  .calc-card::before{content:"";position:absolute;inset:0;background:radial-gradient(80% 60% at 100% 0%,rgba(139,92,246,.13),transparent 60%);pointer-events:none}
+  .calc-head{display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px;color:var(--text-3);position:relative}
+  .calc-head b{color:#fff;font-weight:500}
+  .calc-val{font-family:'Geist',sans-serif;font-size:14px;color:var(--text-3);display:inline-flex;align-items:baseline;gap:8px}
+  .calc-val .num{
+    font-family:'Bricolage Grotesque',sans-serif;font-weight:600;font-size:24px;
+    color:#fff;letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums;
+  }
+  .calc-slider-wrap{margin-top:18px;position:relative}
+  .calc-slider{
+    -webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:99px;
+    background:linear-gradient(to right,var(--accent) 0%,var(--accent) var(--pct,0%),#1a1d27 var(--pct,0%),#1a1d27 100%);
+    outline:none;cursor:pointer;
+  }
+  .calc-slider::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;
+    background:#fff;border:0;cursor:grab;
+    box-shadow:0 0 0 4px rgba(139,92,246,.25),0 4px 16px rgba(139,92,246,.4);
+  }
+  .calc-slider::-moz-range-thumb{
+    width:22px;height:22px;border-radius:50%;background:#fff;border:0;cursor:grab;
+    box-shadow:0 0 0 4px rgba(139,92,246,.25),0 4px 16px rgba(139,92,246,.4);
+  }
+  .calc-ticks{position:relative;height:14px;margin-top:12px;font-family:'Geist Mono',monospace}
+  .calc-ticks span{position:absolute;top:0;font-size:11.5px;color:var(--text-3);transform:translateX(-50%)}
+  .calc-ticks span:nth-child(1){left:0;transform:translateX(0)}
+  .calc-ticks span:nth-child(2){left:11.111%}
+  .calc-ticks span:nth-child(3){left:22.222%}
+  .calc-ticks span:nth-child(4){left:33.333%}
+  .calc-ticks span:nth-child(5){left:44.444%}
+  .calc-ticks span:nth-child(6){left:55.555%}
+  .calc-ticks span:nth-child(7){left:66.666%}
+  .calc-ticks span:nth-child(8){left:77.777%}
+  .calc-ticks span:nth-child(9){left:88.888%}
+  .calc-ticks span:nth-child(10){left:100%;transform:translateX(-100%)}
+  .calc-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-top:30px;padding-top:28px;border-top:1px solid var(--line);position:relative}
+  .calc-stat{padding:0 28px;border-right:1px solid var(--line);position:relative}
+  .calc-stat:first-child{padding-left:4px}
+  .calc-stat:last-child{border-right:0;padding-right:0}
+  .calc-stat-label{font-size:11px;color:var(--text-3);font-family:'Geist Mono',monospace;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+  .calc-stat-num{font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:56px;color:#fff;letter-spacing:-.025em;line-height:1;margin-top:10px;font-variant-numeric:tabular-nums}
+  .calc-stat-sub{font-size:13px;color:var(--text-3);margin-top:8px;line-height:1.4}
+  .calc-stat.matters .calc-stat-num{color:#c4b5fd}
+  .calc-foot{margin-top:24px;text-align:center;font-size:13px;color:var(--text-3);line-height:1.5}
+  .calc-foot b{color:var(--text);font-weight:500}
+
+  /* ---------- HOW IT WORKS ---------- */
+  .how{padding:96px 0;background:linear-gradient(180deg, var(--bg) 0%, #0a0c12 50%, var(--bg) 100%);position:relative}
+  .how-head{text-align:left;max-width:1080px;margin:0 auto 64px}
+  .how-head .eyebrow{justify-content:flex-start}
+  .how-head .section-sub{margin-top:18px;color:var(--text-2);font-size:17px;line-height:1.55;max-width:680px}
+
+  .howit-grid{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;max-width:1080px;margin:0 auto;width:100%}
+  .howit-rail{position:absolute;top:42px;left:calc(100%/6);right:calc(100%/6);height:1px;background:linear-gradient(90deg,transparent,rgba(167,139,250,.32) 12%,rgba(167,139,250,.32) 88%,transparent);pointer-events:none;z-index:0}
+  .howit-pulse{position:absolute;top:50%;left:0;width:60px;height:2px;border-radius:2px;transform:translate(-30px,-50%);background:linear-gradient(90deg,transparent,#a78bfa 50%,transparent);animation:howitFlow 4.2s linear infinite}
+  .howit-pulse.p2{animation-delay:2.1s;opacity:.6}
+  @keyframes howitFlow{0%{left:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:100%;opacity:0}}
+
+  .howit-col{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:1;min-width:0}
+  .howit-node{position:relative;width:84px;height:84px;border-radius:50%;background:radial-gradient(circle at 50% 40%, #1a1d2a, #0c0e15 70%);border:1px solid rgba(167,139,250,.3);display:grid;place-items:center;box-shadow:0 0 0 6px var(--bg), 0 0 32px -8px rgba(167,139,250,.5);transition:transform .25s ease, border-color .25s ease}
+  .howit-col:hover .howit-node{transform:translateY(-2px);border-color:rgba(167,139,250,.55)}
+  .howit-icon{width:30px;height:30px;color:#c4b5fd}
+  .howit-badge{position:absolute;top:-4px;right:-4px;width:24px;height:24px;border-radius:50%;background:#7c3aed;color:#fff;font-family:'Geist',sans-serif;font-size:12px;font-weight:600;display:grid;place-items:center;border:2px solid var(--bg);box-shadow:0 4px 14px -2px rgba(124,58,237,.6)}
+  .howit-title{font-size:22px;font-weight:500;margin:32px 0 10px;letter-spacing:-.012em;color:#fff}
+  .howit-desc{font-size:14.5px;color:var(--text-2);line-height:1.6;margin:0;max-width:300px}
+  .howit-desc strong{color:#c4b5fd;font-weight:500}
+  .howit-tag{margin-top:22px;display:inline-flex;align-items:center;gap:8px;font-family:'Geist Mono',monospace;font-size:12.5px;color:var(--text-2);background:rgba(255,255,255,.04);border:1px solid var(--line);padding:7px 12px;border-radius:8px}
+  .howit-tag svg{width:12px;height:12px}
+  .howit-tools{margin-top:22px;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:300px}
+  .howit-chip{font-size:12.5px;color:var(--text);background:rgba(255,255,255,.04);border:1px solid var(--line);padding:6px 12px;border-radius:8px;font-family:'Geist',sans-serif}
+  .howit-chip.more{color:var(--text-3);border-style:dashed;background:transparent}
+  @media (max-width:1000px){
+    .howit-grid{grid-template-columns:1fr;gap:48px}
+    .howit-rail{display:none}
+  }
+
+  /* ---------- INCLUDED ---------- */
+  .included{padding:80px 0}
+  .inc-grid{display:grid;grid-template-columns:1.1fr 1.4fr;gap:56px;align-items:start}
+  .check-list{display:grid;grid-template-columns:1fr 1fr;gap:14px 28px}
+  .check{display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+  .check .ic{
+    width:22px;height:22px;border-radius:7px;background:rgba(139,92,246,.15);
+    display:grid;place-items:center;flex-shrink:0;margin-top:1px;
+  }
+  .check .ic svg{stroke:#c4b5fd}
+  .check b{font-size:14.5px;font-weight:500;color:#fff;display:block}
+  .check span{font-size:13px;color:var(--text-3);margin-top:2px;display:block}
+
+  /* ---------- PRICING TEASER ---------- */
+  .pricing{padding:80px 0;position:relative}
+  .price-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-top:36px}
+  .price-card{
+    background:linear-gradient(180deg, #10131c, #0b0e15);
+    border:1px solid var(--line);border-radius:16px;padding:24px;position:relative;
+  }
+  .price-card .tier{font-size:12.5px;color:var(--text-3);text-transform:uppercase;letter-spacing:.08em;font-weight:500}
+  .price-card .num{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:500;font-size:42px;line-height:1;letter-spacing:-.03em;margin-top:14px;color:#fff}
+  .price-card .num small{font-family:'Geist',sans-serif;font-size:14px;color:var(--text-3);font-weight:400;margin-left:4px;letter-spacing:0}
+  .price-card .scope{font-size:13px;color:var(--text-2);margin-top:10px}
+  .price-card.hl{border-color:rgba(139,92,246,.5);background:linear-gradient(180deg, rgba(139,92,246,.12), rgba(139,92,246,.04) 60%, transparent), #0b0e15}
+  .price-card.hl::before{content:"Most popular";position:absolute;top:-1px;right:14px;transform:translateY(-50%);font-size:11px;font-weight:500;background:#fff;color:#0b0d12;padding:4px 10px;border-radius:999px;letter-spacing:0}
+  .price-foot{display:flex;align-items:center;justify-content:space-between;margin-top:28px;padding-top:24px;border-top:1px solid var(--line);flex-wrap:wrap;gap:14px}
+  .price-foot p{margin:0;color:var(--text-3);font-size:14px}
+
+  /* ---------- COMPARISON ---------- */
+  .compare{padding:80px 0;background:linear-gradient(180deg, transparent, rgba(139,92,246,.04), transparent)}
+  .quote-mark{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:600;font-size:96px;line-height:.6;color:var(--accent);opacity:.5}
+  .compare-body{margin-top:24px;font-size:16px;color:var(--text-2);line-height:1.7;max-width:760px}
+  .compare-body p{margin:0 0 18px}
+  .compare-body strong{color:#fff;font-weight:500}
+  .compare-grid{margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .vs-card{
+    background:#0c0e15;border:1px solid var(--line);border-radius:18px;padding:24px;position:relative;
+  }
+  .vs-card.bad{border-color:rgba(239,68,68,.18)}
+  .vs-card.good{border-color:rgba(139,92,246,.4);background:linear-gradient(180deg, rgba(139,92,246,.08), transparent 60%), #0c0e15}
+  .vs-tag{font-size:11px;text-transform:uppercase;letter-spacing:.1em;font-weight:600;padding:4px 10px;border-radius:999px;display:inline-block}
+  .vs-tag.bad{background:rgba(239,68,68,.12);color:#fca5a5}
+  .vs-tag.good{background:rgba(139,92,246,.18);color:#c4b5fd}
+  .vs-card h4{font-size:20px;font-weight:500;margin:14px 0 8px;letter-spacing:-.01em}
+  .vs-card p{font-size:14px;color:var(--text-2);line-height:1.55;margin:0 0 12px}
+  .vs-points{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+  .vs-points li{font-size:13.5px;color:var(--text-2);display:flex;gap:10px;align-items:flex-start}
+  .vs-points .x, .vs-points .v{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;margin-top:1px}
+  .vs-points .x{background:rgba(239,68,68,.15);color:#fca5a5}
+  .vs-points .v{background:rgba(34,197,94,.15);color:#86efac}
+
+  /* ---------- USE CASES ---------- */
+  .uc{padding:80px 0}
+  .uc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+  .uc-card{
+    background:linear-gradient(180deg,#10131c,#0a0c13);
+    border:1px solid var(--line);border-radius:20px;padding:28px;
+    position:relative;overflow:hidden;display:flex;flex-direction:column;gap:16px;
+    min-height:360px;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .uc-card:hover{border-color:var(--line-2);transform:translateY(-2px)}
+  .uc-illu{height:140px;border-radius:14px;background:#0b0e15;border:1px solid var(--line);position:relative;overflow:hidden;display:grid;place-items:center}
+  .uc-card h3{font-size:22px;font-weight:500;letter-spacing:-.01em;margin:0}
+  .uc-card p{font-size:14px;color:var(--text-2);line-height:1.6;margin:0;flex:1}
+  .uc-card .uc-link{font-size:14px;color:#fff;display:inline-flex;align-items:center;gap:8px}
+  .uc-card .uc-link .arr{transition:transform .2s ease}
+  .uc-card:hover .uc-link .arr{transform:translateX(3px)}
+
+  .illu-stack{display:flex;flex-direction:column;gap:6px;width:80%}
+  .illu-stack .row{height:18px;border-radius:5px;background:rgba(255,255,255,.04);border:1px solid var(--line);display:flex;align-items:center;gap:6px;padding:0 8px;font-size:10px;color:var(--text-3);font-family:'Geist Mono',monospace}
+  .illu-stack .row .d{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .illu-stack .row.b .d{background:#86efac}
+  .illu-stack .row.c .d{background:#fbbf24}
+
+  .illu-bars{display:flex;align-items:flex-end;gap:6px;height:90px;width:80%}
+  .illu-bars span{flex:1;background:linear-gradient(180deg, var(--accent-2), var(--accent-3));border-radius:4px 4px 0 0;opacity:.85}
+  .illu-bars span:nth-child(1){height:30%}
+  .illu-bars span:nth-child(2){height:55%}
+  .illu-bars span:nth-child(3){height:42%}
+  .illu-bars span:nth-child(4){height:75%}
+  .illu-bars span:nth-child(5){height:62%}
+  .illu-bars span:nth-child(6){height:90%}
+  .illu-bars span:nth-child(7){height:70%}
+
+  .illu-circle{width:90px;height:90px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #c4b5fd, #6d28d9 70%);position:relative;border:2px solid rgba(255,255,255,.12)}
+  .illu-circle::after{content:"";position:absolute;inset:-12px;border-radius:50%;border:1px dashed rgba(167,139,250,.4)}
+  .illu-circle::before{content:"";position:absolute;inset:-26px;border-radius:50%;border:1px dashed rgba(167,139,250,.2)}
+
+  /* ---------- INTEGRATIONS ---------- */
+  .integ{padding:80px 0;text-align:center}
+  .integ-grid{display:grid;grid-template-columns:repeat(9,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:36px}
+  .integ-cell{background:#0b0d13;padding:24px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;font-size:12.5px;color:var(--text-2);transition:background .2s ease}
+  .integ-cell:hover{background:#11141d}
+  .integ-cell .ico{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid var(--line);display:grid;place-items:center;font-weight:700;color:#fff;font-size:16px;letter-spacing:-.02em}
+  .integ-foot{margin-top:24px;font-size:14px;color:var(--text-3)}
+
+  /* ---------- GUARANTEE ---------- */
+  .guar{padding:80px 0}
+  .guar-card{
+    position:relative;border-radius:28px;overflow:hidden;
+    background:linear-gradient(180deg, rgba(139,92,246,.16), rgba(76,29,149,.06) 60%, transparent), #0a0c13;
+    border:1px solid rgba(139,92,246,.3);
+    padding:64px 56px;
+    display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:center;
+  }
+  .guar-card::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(50% 60% at 90% 0%, rgba(167,139,250,.4), transparent 60%),
+      radial-gradient(40% 60% at 0% 100%, rgba(76,29,149,.4), transparent 60%);
+    opacity:.6;
+  }
+  .guar-card .col-text{position:relative;z-index:2}
+  .guar-card h2{margin-top:14px}
+  .guar-card p{margin:18px 0 0;color:var(--text-2);font-size:16px;line-height:1.65;max-width:520px}
+  .guar-card .small{margin-top:18px;color:var(--text-3);font-size:14px}
+  .guar-clock{
+    position:relative;z-index:2;display:flex;justify-content:center;align-items:center;
+  }
+  .clock-ring{
+    width:280px;height:280px;border-radius:50%;
+    background:
+      conic-gradient(from -90deg, var(--accent) 0%, var(--accent-2) 100%, transparent 100%);
+    display:grid;place-items:center;
+    position:relative;
+    box-shadow:0 0 80px -20px rgba(139,92,246,.6);
+  }
+  .clock-ring::after{content:"";position:absolute;inset:8px;border-radius:50%;background:#0b0d13;border:1px solid var(--line)}
+  .clock-num{position:relative;z-index:2;text-align:center}
+  .clock-num b{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:500;font-size:88px;line-height:1;color:#fff;display:block;letter-spacing:-.05em}
+  .clock-num span{font-size:13px;letter-spacing:.18em;color:var(--accent-2);text-transform:uppercase}
+
+  /* ---------- FAQ ---------- */
+  .faq{padding:80px 0}
+  .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:36px}
+  details.q{
+    background:#0b0d13;border:1px solid var(--line);border-radius:14px;padding:18px 22px;
+    transition:background .2s ease;
+  }
+  details.q[open]{background:#0e1119;border-color:var(--line-2)}
+  details.q summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:15.5px;font-weight:500;color:#fff}
+  details.q summary::-webkit-details-marker{display:none}
+  details.q .plus{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.06);display:grid;place-items:center;flex-shrink:0;transition:transform .2s ease}
+  details.q[open] .plus{transform:rotate(45deg);background:rgba(139,92,246,.2)}
+  details.q .a{color:var(--text-2);font-size:14.5px;line-height:1.6;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+  .faq-foot{margin-top:28px;display:flex;justify-content:center}
+
+  /* ---------- FINAL CTA ---------- */
+  .final{padding:120px 0 100px;text-align:center;position:relative;overflow:hidden}
+  .final::before{
+    content:"";position:absolute;left:50%;bottom:-200px;transform:translateX(-50%);
+    width:1200px;height:600px;border-radius:50%;
+    background:radial-gradient(closest-side, rgba(139,92,246,.4), transparent 70%);
+    filter:blur(20px);
+  }
+  .final h2{position:relative;font-size:clamp(40px,5.5vw,76px);font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:500;letter-spacing:-.03em;line-height:1.04;margin:0 auto;max-width:880px}
+  .final h2 em{font-style:italic;color:#cdb8ff}
+  .final p{position:relative;color:var(--text-2);font-size:17px;margin:24px auto 0;max-width:580px}
+  .final .cta-row{margin-top:36px;position:relative}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:60px 0 40px;border-top:1px solid var(--line);position:relative;z-index:2;background:var(--bg)}
+  .foot-top{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:40px;margin-bottom:48px}
+  .foot-brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:18px;letter-spacing:-.01em}
+  .foot-brand .brand-mark{width:26px;height:26px}
+  .foot-tag{margin-top:14px;color:var(--text-3);font-size:14px;line-height:1.6;max-width:280px}
+  .foot-col h6{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3);margin:0 0 16px;font-weight:500}
+  .foot-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+  .foot-col a{color:var(--text-2);font-size:14px;transition:color .15s ease}
+  .foot-col a:hover{color:#fff}
+  .foot-bot{display:flex;justify-content:space-between;align-items:center;padding-top:28px;border-top:1px solid var(--line);font-size:13px;color:var(--text-3);flex-wrap:wrap;gap:14px}
+  .foot-bot .lang{display:inline-flex;align-items:center;gap:8px}
+
+  .footer-mark{
+    font-family:'Bricolage Grotesque',system-ui,sans-serif;font-style:normal;font-weight:500;
+    font-size:clamp(120px,22vw,320px);line-height:.85;letter-spacing:-.06em;
+    text-align:center;color:transparent;
+    background:linear-gradient(180deg, rgba(139,92,246,.18) 0%, transparent 80%);
+    -webkit-background-clip:text;background-clip:text;
+    margin-top:60px;user-select:none;pointer-events:none;
+    overflow:hidden;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 1000px){
+    .hero-card-inner{grid-template-columns:1fr}
+    .cat-grid{grid-template-columns:1fr 1fr;gap:14px}
+    .inc-grid{grid-template-columns:1fr;gap:36px}
+    .price-grid{grid-template-columns:1fr 1fr}
+    .compare-grid{grid-template-columns:1fr}
+    .uc-grid{grid-template-columns:1fr}
+    .integ-grid{grid-template-columns:repeat(3,1fr)}
+    .guar-card{grid-template-columns:1fr;padding:40px 24px}
+    .foot-top{grid-template-columns:1fr 1fr}
+    .faq-grid{grid-template-columns:1fr}
+    .nav-links{display:none}
+    .check-list{grid-template-columns:1fr}
+    .calc-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<div class="nav-wrap">
+  <nav class="nav" aria-label="Primary">
+    <a class="brand" href="#">
+      <span class="brand-mark"></span>
+      <span>RentedIn</span>
+    </a>
+    <div class="nav-links">
+      <a href="#pricing-link">Pricing</a>
+      <a href="#how-link">How it works</a>
+      <div class="menu" tabindex="0">
+        <span>Use cases <svg class="caret" viewBox="0 0 12 12" fill="none"><path d="M3 4.5l3 3 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div class="pop">
+          <a href="#use-link"><b>Lead-gen agencies</b><small>Run client outbound at scale</small></a>
+          <a href="#use-link"><b>SaaS &amp; SDR teams</b><small>Past your reps' invite cap</small></a>
+          <a href="#use-link"><b>Founders</b><small>Don't burn your real LinkedIn</small></a>
+        </div>
+      </div>
+      <a href="#faq-link">FAQ</a>
+      <a href="#compare-link">Comparison</a>
+    </div>
+    <a class="nav-cta" href="#order">Order now <span class="arr">&rarr;</span></a>
+  </nav>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-arc"></div>
+  <div class="wrap hero-inner">
+    <span class="badge">
+      <span class="tag">NEW</span>
+      <span>24-hour replacement guarantee, no questions asked</span>
+      <span class="arr">&rarr;</span>
+    </span>
+
+    <h1 class="display">
+      LinkedIn profiles that scale<br/>
+      your outreach. <em>$100/month.</em><br/>
+      Replaced in 24h, no questions.
+    </h1>
+
+    <p class="hero-sub">
+      Purpose-built profiles, hand-warmed for 90+ days, with 500+ real connections and a dedicated IP. Plug into any LinkedIn automation tool. Delivered in 24 hours.
+    </p>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#order">
+        Order now <span class="price-pill">$100/profile</span>
+      </a>
+      <a class="btn-link" href="#how-link">See how it works <span class="arr">&rarr;</span></a>
+    </div>
+
+    <div class="micro">
+      <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="#86efac" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>No contract</span>
+      <span class="dot"></span>
+      <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="#86efac" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Cancel anytime</span>
+      <span class="dot"></span>
+      <span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="#86efac" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>24-hour replacement</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ CATALOG ============ -->
+<section class="catalog" id="catalog">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>The catalog</span>
+      <h2 class="section-title">Meet the personas <em>you can rent.</em></h2>
+      <p class="section-sub">A sample from our active roster. New personas are added every month &mdash; if you don't see your fit, we'll build one.</p>
+    </div>
+
+    <div class="cat-grid">
+      <!-- 1. Marcus Hale -->
+      <article class="li-card">
+        <div class="li-banner"></div>
+        <div class="li-avatar"><img src="images/personas/marcus.jpg" alt="Portrait of Marcus Hale" loading="lazy"/></div>
+        <div class="li-body">
+          <div class="li-name">Marcus Hale</div>
+          <div class="li-role">Senior Account Executive at <b>CloudPivot</b></div>
+          <div class="li-loc">London, United Kingdom &middot; B2B SaaS</div>
+        </div>
+        <div class="li-foot">
+          <span class="li-pill uvp"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5.5 4h-.8a2.7 2.7 0 1 0 0 5.4h1.6M8 10h.7a2.7 2.7 0 1 0 0-5.4H7.1M5 7h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>500+ connections</span>
+          <span class="li-pill go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7.5 1.5L3 8h3.5L6 12.5L11 6H7.5z" fill="currentColor"/></svg>Activation &lt; 24h</span>
+        </div>
+        <div class="li-annot m1"><span class="lab">Connections with<br/>real people</span></div>
+      </article>
+
+      <!-- 2. Sophie Laurent -->
+      <article class="li-card">
+        <div class="li-banner"></div>
+        <div class="li-avatar"><img src="images/personas/sophie.jpg" alt="Portrait of Sophie Laurent" loading="lazy"/></div>
+        <div class="li-body">
+          <div class="li-name">Sophie Laurent</div>
+          <div class="li-role">Head of Talent Acquisition at <b>TalentForge</b></div>
+          <div class="li-loc">Paris, France &middot; Recruiting</div>
+        </div>
+        <div class="li-foot">
+          <span class="li-pill uvp"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5.5 4h-.8a2.7 2.7 0 1 0 0 5.4h1.6M8 10h.7a2.7 2.7 0 1 0 0-5.4H7.1M5 7h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>500+ connections</span>
+          <span class="li-pill go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7.5 1.5L3 8h3.5L6 12.5L11 6H7.5z" fill="currentColor"/></svg>Activation &lt; 24h</span>
+        </div>
+        <div class="li-annot s1"><span class="lab">Optimized for<br/>LinkedIn outreach</span></div>
+      </article>
+
+      <!-- 3. Pieter Janssen -->
+      <article class="li-card">
+        <div class="li-banner"></div>
+        <div class="li-avatar"><img src="images/personas/pieter.jpg" alt="Portrait of Pieter Janssen" loading="lazy"/></div>
+        <div class="li-body">
+          <div class="li-name">Pieter Janssen</div>
+          <div class="li-role">Growth Marketing Manager at <b>NorthBeam Goods</b></div>
+          <div class="li-loc">Amsterdam, Netherlands &middot; DTC / e-commerce</div>
+        </div>
+        <div class="li-foot">
+          <span class="li-pill uvp"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5.5 4h-.8a2.7 2.7 0 1 0 0 5.4h1.6M8 10h.7a2.7 2.7 0 1 0 0-5.4H7.1M5 7h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>500+ connections</span>
+          <span class="li-pill go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7.5 1.5L3 8h3.5L6 12.5L11 6H7.5z" fill="currentColor"/></svg>Activation &lt; 24h</span>
+        </div>
+        <div class="li-annot p1"><span class="lab">In your preferred<br/>location</span></div>
+      </article>
+
+      <!-- 4. Lena Hofmann -->
+      <article class="li-card">
+        <div class="li-banner"></div>
+        <div class="li-avatar"><img src="images/personas/lena.jpg" alt="Portrait of Lena Hofmann" loading="lazy"/></div>
+        <div class="li-body">
+          <div class="li-name">Lena Hofmann</div>
+          <div class="li-role">Senior BDR at <b>FinStack</b></div>
+          <div class="li-loc">Berlin, Germany &middot; Fintech</div>
+        </div>
+        <div class="li-foot">
+          <span class="li-pill uvp"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5.5 4h-.8a2.7 2.7 0 1 0 0 5.4h1.6M8 10h.7a2.7 2.7 0 1 0 0-5.4H7.1M5 7h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>500+ connections</span>
+          <span class="li-pill go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7.5 1.5L3 8h3.5L6 12.5L11 6H7.5z" fill="currentColor"/></svg>Activation &lt; 24h</span>
+        </div>
+      </article>
+
+      <!-- 5. Camille Mercier -->
+      <article class="li-card">
+        <div class="li-banner"></div>
+        <div class="li-avatar ph">CM</div>
+        <div class="li-body">
+          <div class="li-name">Camille Mercier</div>
+          <div class="li-role">Brand Partnerships Lead at <b>Atelier Vingt</b></div>
+          <div class="li-loc">Lyon, France &middot; Creative Agency</div>
+        </div>
+        <div class="li-foot">
+          <span class="li-pill uvp"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5.5 4h-.8a2.7 2.7 0 1 0 0 5.4h1.6M8 10h.7a2.7 2.7 0 1 0 0-5.4H7.1M5 7h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>500+ connections</span>
+          <span class="li-pill go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7.5 1.5L3 8h3.5L6 12.5L11 6H7.5z" fill="currentColor"/></svg>Activation &lt; 24h</span>
+        </div>
+      </article>
+
+      <!-- 6. Anna Weber -->
+      <article class="li-card">
+        <div class="li-banner"></div>
+        <div class="li-avatar"><img src="images/personas/anna.jpg" alt="Portrait of Anna Weber" loading="lazy"/></div>
+        <div class="li-body">
+          <div class="li-name">Anna Weber</div>
+          <div class="li-role">Senior Consultant at <b>NorthSpur Advisory</b></div>
+          <div class="li-loc">Munich, Germany &middot; B2B Consulting</div>
+        </div>
+        <div class="li-foot">
+          <span class="li-pill uvp"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5.5 4h-.8a2.7 2.7 0 1 0 0 5.4h1.6M8 10h.7a2.7 2.7 0 1 0 0-5.4H7.1M5 7h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>500+ connections</span>
+          <span class="li-pill go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7.5 1.5L3 8h3.5L6 12.5L11 6H7.5z" fill="currentColor"/></svg>Activation &lt; 24h</span>
+        </div>
+      </article>
+    </div>
+
+    <p class="cat-foot">Need a different region, language, or industry? Tell us what you're looking for. <a href="#contact">Get in touch &rarr;</a></p>
+  </div>
+</section>
+
+<!-- ============ VALUE / CALCULATOR ============ -->
+<section class="calc">
+  <div class="wrap">
+    <div class="calc-grid">
+      <div>
+        <span class="eyebrow"><span class="dot"></span>The value</span>
+        <h2 class="section-title">Scale outreach <em>without burning</em> your team's profiles.</h2>
+      </div>
+      <div class="calc-body">
+        <p>Each rented profile adds <strong>100 connection requests/week</strong> and <strong>20 messages/day</strong> to your outbound capacity &mdash; without risking your founder's or SDRs' real accounts.</p>
+        <p>Move the slider to see what your pipeline could look like.</p>
+      </div>
+    </div>
+
+    <div class="calc-card">
+      <div class="calc-head">
+        <span><b>Rented profiles</b> &middot; drag to adjust</span>
+        <span class="calc-val"><span class="num" id="calc-count">1</span><span>profiles</span></span>
+      </div>
+      <div class="calc-slider-wrap">
+        <input type="range" min="1" max="10" step="1" value="1" id="calc-slider" class="calc-slider" style="--pct:0%"/>
+        <div class="calc-ticks">
+          <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+        </div>
+      </div>
+      <div class="calc-stats">
+        <div class="calc-stat">
+          <div class="calc-stat-label">Connection requests</div>
+          <div class="calc-stat-num" id="calc-sent">400</div>
+          <div class="calc-stat-sub">sent per month</div>
+        </div>
+        <div class="calc-stat">
+          <div class="calc-stat-label">Replies</div>
+          <div class="calc-stat-num" id="calc-replies">15</div>
+          <div class="calc-stat-sub">from accepted prospects</div>
+        </div>
+        <div class="calc-stat matters">
+          <div class="calc-stat-label">Meetings booked</div>
+          <div class="calc-stat-num" id="calc-meetings">3</div>
+          <div class="calc-stat-sub">net new pipeline / month</div>
+        </div>
+      </div>
+    </div>
+    <div class="calc-foot">Based on industry-average rates: <b>25%</b> accept &middot; <b>15%</b> reply &middot; <b>20%</b> book a meeting. Your numbers will vary by ICP, copy, and offer.</div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var s = document.getElementById('calc-slider');
+  if(!s) return;
+  var c = document.getElementById('calc-count'),
+      sent = document.getElementById('calc-sent'),
+      rep = document.getElementById('calc-replies'),
+      mtg = document.getElementById('calc-meetings');
+  function update(){
+    var n = +s.value;
+    c.textContent = n;
+    sent.textContent = (n*400).toLocaleString();
+    rep.textContent = n*15;
+    mtg.textContent = n*3;
+    s.style.setProperty('--pct', ((n-1)/9*100) + '%');
+  }
+  s.addEventListener('input', update);
+  update();
+})();
+</script>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="how" id="how-link">
+  <div class="wrap">
+    <div class="section-head how-head">
+      <span class="eyebrow"><span class="dot"></span>How it works</span>
+      <h2 class="section-title">Three steps. <em>You're sending in 24&nbsp;hours.</em></h2>
+      <p class="section-sub">Order today, run campaigns tomorrow.</p>
+    </div>
+
+    <div class="howit-grid">
+      <div class="howit-rail" aria-hidden="true">
+        <span class="howit-pulse"></span>
+        <span class="howit-pulse p2"></span>
+      </div>
+
+      <div class="howit-col">
+        <div class="howit-node">
+          <span class="howit-badge">1</span>
+          <svg class="howit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18"/><path d="M7 15h4"/></svg>
+        </div>
+        <h3 class="howit-title">Tell us what you need</h3>
+        <p class="howit-desc">Quantity, geo, persona. <strong>Under 2&nbsp;minutes</strong> to place your order.</p>
+        <span class="howit-tag"><svg viewBox="0 0 14 14" fill="none"><path d="M7.5 1.5L3 8h3.5L6 12.5L11 6H7.5z" fill="#fbbf24"/></svg>~2 min</span>
+      </div>
+
+      <div class="howit-col">
+        <div class="howit-node">
+          <span class="howit-badge">2</span>
+          <svg class="howit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l8 4v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10v-5l8-4z"/><path d="M9 12l2.2 2.2L15.5 10"/></svg>
+        </div>
+        <h3 class="howit-title">We deliver the package</h3>
+        <p class="howit-desc"><strong>Pre-warmed 90 days. 500+ real connections.</strong> Comes with credentials, proxy, and anti-detect browser profile.</p>
+        <span class="howit-tag"><svg viewBox="0 0 14 14" fill="none"><path d="M7.5 1.5L3 8h3.5L6 12.5L11 6H7.5z" fill="#fbbf24"/></svg>&lt; 24h</span>
+      </div>
+
+      <div class="howit-col">
+        <div class="howit-node">
+          <span class="howit-badge">3</span>
+          <svg class="howit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <h3 class="howit-title">Plug into your stack</h3>
+        <p class="howit-desc">Works with whatever you already use.</p>
+        <div class="howit-tools">
+          <span class="howit-chip">HeyReach</span>
+          <span class="howit-chip">Expandi</span>
+          <span class="howit-chip">Waalaxy</span>
+          <span class="howit-chip">Lemlist</span>
+          <span class="howit-chip more">+ more</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ INCLUDED ============ -->
+<section class="included">
+  <div class="wrap">
+    <div class="inc-grid">
+      <div>
+        <span class="eyebrow"><span class="dot"></span>What's included</span>
+        <h2 class="section-title">Every <em>$100/month</em> profile includes:</h2>
+        <p class="section-sub">No tiers, no upgrades, no add-ons. The same complete kit ships with every profile we deliver.</p>
+      </div>
+      <div class="check-list">
+        <div class="check"><div class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Hand-warmed for 90+ days</b><span>Real connection requests, profile views, comments</span></div></div>
+        <div class="check"><div class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>500+ real LinkedIn connections</b><span>Sourced manually from your target ICP</span></div></div>
+        <div class="check"><div class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Full persona</b><span>Photo, name, headline, work history, education, skills, certifications</span></div></div>
+        <div class="check"><div class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Dedicated residential IP / proxy</b><span>One profile, one IP &mdash; never shared</span></div></div>
+        <div class="check"><div class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Anti-detect browser profile</b><span>Preconfigured fingerprint, ready to launch</span></div></div>
+        <div class="check"><div class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>2FA setup transferred to you</b><span>You hold the keys from day one</span></div></div>
+        <div class="check"><div class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Compatible with any automation tool</b><span>HeyReach, Expandi, Waalaxy, anything</span></div></div>
+        <div class="check"><div class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Unconditional 24h replacement</b><span>If anything happens to the profile</span></div></div>
+        <div class="check"><div class="ic"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Email + Slack support, 24/5</b><span>Real humans, response in hours</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING TEASER ============ -->
+<section class="pricing" id="pricing-link">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>Pricing</span>
+      <h2 class="section-title">Flat $100 per profile. <em>Volume discounts kick in at 5 profiles.</em></h2>
+    </div>
+
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="tier">1&ndash;4 profiles</div>
+        <div class="num">$100<small>/profile/mo</small></div>
+        <div class="scope">For founders and small teams testing outbound.</div>
+      </div>
+      <div class="price-card hl">
+        <div class="tier">5&ndash;9 profiles</div>
+        <div class="num">$90<small>/profile/mo</small></div>
+        <div class="scope">For small agencies and SaaS teams scaling beyond their reps.</div>
+      </div>
+      <div class="price-card">
+        <div class="tier">10&ndash;24 profiles</div>
+        <div class="num">$80<small>/profile/mo</small></div>
+        <div class="scope">For agencies running outbound across multiple clients.</div>
+      </div>
+      <div class="price-card">
+        <div class="tier">25+ profiles</div>
+        <div class="num">Custom</div>
+        <div class="scope">For high-volume operations. Talk to us.</div>
+      </div>
+    </div>
+
+    <div class="price-foot">
+      <p>No setup fees. No add-ons. Cancel anytime.</p>
+      <a class="btn-link" href="#pricing-page">See full pricing <span class="arr">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HONEST COMPARISON ============ -->
+<section class="compare" id="compare-link">
+  <div class="wrap">
+    <span class="eyebrow"><span class="dot"></span>The honest comparison</span>
+    <div class="quote-mark">&ldquo;</div>
+    <h2 class="section-title" style="margin-top:0">But aren't <em>ID-verified profiles</em> safer?</h2>
+    <div class="compare-body">
+      <p><strong>Short answer: no.</strong> Here's the honest comparison.</p>
+      <p>Most "ID-verified" rental profiles on the market today were verified using fake or stolen ID documents &mdash; which is identity-document fraud, far more serious legal exposure than anything you'd face with a purpose-built profile. The few that come from real consenting account-owners are expensive, slow to replace when LinkedIn challenges them, and stuck with whatever real-life identity they came with.</p>
+      <p>Our model is different. <strong>Every persona is fictional, hand-built, and hand-warmed.</strong> No real identities involved. When LinkedIn breaks a profile, we replace it in 24 hours.</p>
+    </div>
+
+    <div class="compare-grid">
+      <div class="vs-card bad">
+        <span class="vs-tag bad">Other vendors</span>
+        <h4>&ldquo;ID-verified&rdquo; rental profiles</h4>
+        <p>Marketed as safer. The verification badge usually got there one of two ways &mdash; neither is good for your business.</p>
+        <ul class="vs-points">
+          <li><span class="x">&times;</span><span>Often verified with fake or stolen ID documents &mdash; that's identity-document fraud.</span></li>
+          <li><span class="x">&times;</span><span>$140&ndash;$200/month per profile.</span></li>
+          <li><span class="x">&times;</span><span>Days to replace when LinkedIn challenges. You keep paying.</span></li>
+          <li><span class="x">&times;</span><span>Stuck with whoever the real owner is. Not customizable to your ICP.</span></li>
+        </ul>
+      </div>
+      <div class="vs-card good">
+        <span class="vs-tag good">RentedIn</span>
+        <h4>Purpose-built profiles</h4>
+        <p>Fictional personas, hand-built and hand-warmed. No real identities, no document fraud, no surprises.</p>
+        <ul class="vs-points">
+          <li><span class="v">&check;</span><span>No real-person ID documents involved at any step.</span></li>
+          <li><span class="v">&check;</span><span>$100/month flat. $80 at scale.</span></li>
+          <li><span class="v">&check;</span><span>24-hour unconditional replacement. No audit, no fine print.</span></li>
+          <li><span class="v">&check;</span><span>Built to your ICP &mdash; industry, seniority, geo.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:32px">
+      <a class="btn-link" href="#compare-page">Read the full comparison <span class="arr">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ USE CASES ============ -->
+<section class="uc" id="use-link">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>Use cases</span>
+      <h2 class="section-title">Built for the way you <em>do outbound.</em></h2>
+    </div>
+
+    <div class="uc-grid">
+      <div class="uc-card">
+        <div class="uc-illu">
+          <div class="illu-stack">
+            <div class="row"><span class="d"></span>Client A &middot; 4 profiles &middot; HeyReach</div>
+            <div class="row b"><span class="d"></span>Client B &middot; 2 profiles &middot; Expandi</div>
+            <div class="row c"><span class="d"></span>Client C &middot; 6 profiles &middot; Waalaxy</div>
+            <div class="row"><span class="d"></span>Client D &middot; 3 profiles &middot; LGM</div>
+          </div>
+        </div>
+        <h3>Lead-gen agencies</h3>
+        <p>Run client outbound at scale. Volume pricing from $80/profile. Tag profiles by client and campaign. Tool freedom across every account.</p>
+        <a class="uc-link" href="#use-agencies">See agency setup <span class="arr">&rarr;</span></a>
+      </div>
+      <div class="uc-card">
+        <div class="uc-illu">
+          <div class="illu-bars">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <h3>B2B SaaS &amp; SDR teams</h3>
+        <p>Scale outbound past your SDRs' personal LinkedIn limits. Plug into HeyReach, Expandi, Outreach, Salesloft.</p>
+        <a class="uc-link" href="#use-saas">See SaaS setup <span class="arr">&rarr;</span></a>
+      </div>
+      <div class="uc-card">
+        <div class="uc-illu">
+          <div class="illu-circle"></div>
+        </div>
+        <h3>Founders</h3>
+        <p>Test outbound without burning your real LinkedIn profile. Start with one profile, scale when it works.</p>
+        <a class="uc-link" href="#use-founders">See founder setup <span class="arr">&rarr;</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INTEGRATIONS ============ -->
+<section class="integ">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="eyebrow"><span class="dot"></span>Integrations</span>
+      <h2 class="section-title">Works with <em>your stack.</em></h2>
+    </div>
+
+    <div class="integ-grid">
+      <div class="integ-cell"><div class="ico">HR</div>HeyReach</div>
+      <div class="integ-cell"><div class="ico">Ex</div>Expandi</div>
+      <div class="integ-cell"><div class="ico">Wa</div>Waalaxy</div>
+      <div class="integ-cell"><div class="ico">LG</div>La Growth Machine</div>
+      <div class="integ-cell"><div class="ico">Le</div>Lemlist</div>
+      <div class="integ-cell"><div class="ico">Dr</div>Dripify</div>
+      <div class="integ-cell"><div class="ico">Ph</div>PhantomBuster</div>
+      <div class="integ-cell"><div class="ico">Sk</div>Skylead</div>
+      <div class="integ-cell"><div class="ico">Lh</div>Linked Helper</div>
+    </div>
+    <p class="integ-foot">Not on this list? It works anyway. We don't restrict tools &mdash; bring whatever you use.</p>
+  </div>
+</section>
+
+<!-- ============ GUARANTEE ============ -->
+<section class="guar">
+  <div class="wrap">
+    <div class="guar-card">
+      <div class="col-text">
+        <span class="eyebrow"><span class="dot"></span>Replacement guarantee</span>
+        <h2 class="section-title">The strongest replacement guarantee <em>on the market.</em></h2>
+        <p>If LinkedIn restricts, suspends, or bans a profile during your rental period &mdash; for any reason &mdash; we replace it within 24 hours. No usage audit. No &ldquo;you violated rule X.&rdquo; No fine print.</p>
+        <p class="small">The only thing we ask: don't share access outside your team, and don't use the profile for anything illegal. That's it.</p>
+      </div>
+      <div class="guar-clock">
+        <div class="clock-ring">
+          <div class="clock-num">
+            <b>24h</b>
+            <span>No questions asked</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq" id="faq-link">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="eyebrow"><span class="dot"></span>FAQ</span>
+      <h2 class="section-title">The questions <em>buyers actually ask.</em></h2>
+    </div>
+
+    <div class="faq-grid">
+      <details class="q" open>
+        <summary>Is this against LinkedIn's terms? <span class="plus">+</span></summary>
+        <div class="a">Mass outbound and automation are against LinkedIn's ToS for any account, verified or not. The risk is account loss, which is exactly what our replacement guarantee covers.</div>
+      </details>
+      <details class="q">
+        <summary>Will my profile get banned? <span class="plus">+</span></summary>
+        <div class="a">Eventually, some profiles will. We size pricing and our SLA assuming this. Average lifespan in our customer base is several months when used inside reasonable limits.</div>
+      </details>
+      <details class="q">
+        <summary>Can I use my own automation tool? <span class="plus">+</span></summary>
+        <div class="a">Yes. Any tool. We don't restrict.</div>
+      </details>
+      <details class="q">
+        <summary>How fast is replacement? <span class="plus">+</span></summary>
+        <div class="a">24 hours. No audit, no condition.</div>
+      </details>
+      <details class="q">
+        <summary>Do you offer Sales Navigator? <span class="plus">+</span></summary>
+        <div class="a">Available on request, no surprise add-on charge.</div>
+      </details>
+      <details class="q">
+        <summary>What's the contract? <span class="plus">+</span></summary>
+        <div class="a">Month-to-month. Cancel anytime, no notice period.</div>
+      </details>
+    </div>
+
+    <div class="faq-foot">
+      <a class="btn-link" href="#faq-page">See full FAQ <span class="arr">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final" id="order">
+  <div class="wrap">
+    <h2>Stop burning real profiles.<br/><em>Start scaling.</em></h2>
+    <p>Order your first profile in under 2 minutes. Delivered in 24 hours. $100/month, replaced no questions asked.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#order-checkout">Order now <span class="price-pill">$100/profile</span></a>
+      <a class="btn btn-ghost" href="#contact">Talk to us first <span class="arr">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="foot-brand"><span class="brand-mark"></span>RentedIn</div>
+        <p class="foot-tag">Purpose-built LinkedIn profiles for B2B outreach. $100/month, replaced in 24 hours, no automation-tool lock-in.</p>
+      </div>
+      <div class="foot-col">
+        <h6>Product</h6>
+        <ul>
+          <li><a href="#pricing-page">Pricing</a></li>
+          <li><a href="#how-page">How it works</a></li>
+          <li><a href="#use-agencies">For agencies</a></li>
+          <li><a href="#use-saas">For SaaS teams</a></li>
+          <li><a href="#use-founders">For founders</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h6>Resources</h6>
+        <ul>
+          <li><a href="#compare-page">The honest comparison</a></li>
+          <li><a href="#faq-page">FAQ</a></li>
+          <li><a href="#guarantee">Replacement guarantee</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h6>Company</h6>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h6>Legal</h6>
+        <ul>
+          <li><a href="#terms">Terms of service</a></li>
+          <li><a href="#privacy">Privacy policy</a></li>
+          <li><a href="#aup">Acceptable use</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-mark">RentedIn</div>
+    <div class="foot-bot">
+      <span>&copy; 2026 RentedIn. Profiles are fictional personas, not real persons.</span>
+      <span class="lang">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.2"/><path d="M1.5 7h11M7 1.5c1.8 2 1.8 9 0 11M7 1.5c-1.8 2-1.8 9 0 11" stroke="currentColor" stroke-width="1.2"/></svg>
+        US &amp; EU geos available
+      </span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
