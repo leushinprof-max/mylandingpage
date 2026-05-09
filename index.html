@@ -4,6 +4,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>RentedIn — LinkedIn profiles that scale your outreach</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="alternate icon" href="/favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Fraunces:ital,wght@0,300..900;1,300..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Space+Grotesk:wght@300..700&family=DM+Serif+Display:ital@0;1&family=Manrope:wght@300..800&family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=JetBrains+Mono:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,300..700;1,300..700&family=Caveat:ital,wght@0,500..700;1,500..700&display=swap" rel="stylesheet">
@@ -74,13 +76,8 @@
     box-shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 24px 60px -28px rgba(0,0,0,.7);
     width:100%;max-width:1100px;
   }
-  .brand{display:flex;align-items:center;gap:9px;font-weight:600;letter-spacing:-.01em;font-size:15px;padding-right:14px;border-right:1px solid rgba(255,255,255,.06);margin-right:6px}
-  .brand-mark{width:22px;height:22px;border-radius:6px;background:
-    radial-gradient(120% 120% at 20% 10%, #c4b5fd 0%, #8b5cf6 38%, #4c1d95 100%);
-    box-shadow:0 0 0 1px rgba(255,255,255,.12) inset, 0 6px 18px -6px rgba(139,92,246,.6);
-    position:relative;
-  }
-  .brand-mark::after{content:"";position:absolute;inset:4px;border-radius:3px;background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,0));mix-blend-mode:overlay}
+  .brand{display:flex;align-items:center;font-weight:700;letter-spacing:-.015em;font-size:16px;padding-right:14px;border-right:1px solid rgba(255,255,255,.06);margin-right:6px;color:var(--text)}
+  .brand-accent{color:#cdb8ff}
   .nav-links{display:flex;gap:2px;align-items:center;flex:1}
   .nav-links a, .nav-links .menu{
     font-size:13.5px;color:var(--text-2);
@@ -419,6 +416,29 @@
   .how-intro{text-align:center;max-width:780px;margin:0 auto 80px}
   .how-intro .eyebrow{justify-content:center}
   .how-intro .section-sub{margin-top:18px;font-size:17px;color:var(--text-2);max-width:680px;margin-left:auto;margin-right:auto}
+  .how-eyebrow-row{max-width:1180px;margin:0 auto 18px;padding-left:23px}
+  @media (max-width:920px){
+    .how-eyebrow-row{padding-left:10px}
+  }
+  @media (max-width:720px){
+    .how-eyebrow-row{padding-left:2px}
+  }
+
+  /* Pricing, calculator & Guarantee:
+     left = sticky-circle left (.steps-spine left + 23px),
+     right = step1-cards right (.steps-spine right - 28px, matches .step1-stage padding) */
+  @media (min-width:1001px){
+    .pricing > .wrap > .section-head,
+    .pricing > .wrap > .price-grid,
+    .pricing > .wrap > .calc-card,
+    .pricing > .wrap > .calc-foot,
+    .guar > .wrap > .guar-card{
+      max-width:1129px;
+      margin-left:auto;
+      margin-right:max(28px, calc((100% - 1180px) / 2 + 28px));
+      box-sizing:border-box;
+    }
+  }
 
   .steps-spine{position:relative;padding-left:88px;max-width:1180px;margin:0 auto}
   .spine-line{
@@ -1095,8 +1115,7 @@
   /* ---------- FOOTER ---------- */
   footer{padding:60px 0 40px;border-top:1px solid var(--line);position:relative;z-index:2;background:var(--bg)}
   .foot-top{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:40px;margin-bottom:48px}
-  .foot-brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:18px;letter-spacing:-.01em}
-  .foot-brand .brand-mark{width:26px;height:26px}
+  .foot-brand{display:flex;align-items:center;font-weight:700;font-size:20px;letter-spacing:-.015em}
   .foot-tag{margin-top:14px;color:var(--text-3);font-size:14px;line-height:1.6;max-width:280px}
   .foot-col h6{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-3);margin:0 0 16px;font-weight:500}
   .foot-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
@@ -1136,10 +1155,9 @@
      MOBILE — phones (<= 720px and <= 480px)
      =========================================================== */
   @media (max-width: 720px){
-    /* nav: hide brand text, push buttons to the right */
+    /* nav: keep brand visible, push buttons to the right */
     .nav{padding:6px 6px 6px 10px;gap:4px}
     .nav .brand{padding-right:0;margin-right:0;border-right:none}
-    .nav .brand > span:last-child{display:none}
     .nav .nav-links{display:none}
     .nav .theme-toggle{width:32px;height:32px;margin:0 2px 0 auto}
     .nav .nav-cta-secondary{padding:7px 11px;font-size:12.5px;gap:5px;margin-right:3px}
@@ -1384,7 +1402,7 @@
 
   @media (max-width: 480px){
     /* even tighter on really small screens — keep both CTAs, shrink chrome */
-    .brand-mark{width:18px;height:18px}
+    .brand{font-size:14px}
     h1.display{font-size:clamp(30px, 9.5vw, 48px)}
     .outreach-net{height:300px}
     .outreach-center{width:72px;height:72px}
@@ -1423,6 +1441,7 @@
     box-shadow:0 1px 0 rgba(255,255,255,.6) inset, 0 18px 48px -22px rgba(15,17,24,.18);
   }
   .light .brand{border-right:1px solid rgba(15,17,24,.08)}
+  .light .brand-accent{color:#6d28d9}
   .light .nav-links a:hover, .light .nav-links .menu:hover{background:rgba(15,17,24,.06)}
   .light .menu .pop{
     background:rgba(255,255,255,.97);border:1px solid rgba(15,17,24,.08);
@@ -1655,17 +1674,17 @@
   .theme-toggle{
     display:inline-flex;align-items:center;justify-content:center;
     width:36px;height:36px;border-radius:50%;
-    background:transparent;border:1px solid rgba(255,255,255,.08);
-    color:var(--text-2);cursor:pointer;flex-shrink:0;
-    transition:background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
+    background:transparent;border:0;
+    color:var(--text-3);cursor:pointer;flex-shrink:0;opacity:.7;
+    transition:opacity .2s ease, color .2s ease, background .2s ease;
     margin:0 4px 0 0;padding:0;
   }
-  .theme-toggle:hover{background:rgba(255,255,255,.06);color:var(--text);transform:translateY(-1px)}
+  .theme-toggle:hover{opacity:1;color:var(--text-2);background:rgba(255,255,255,.04)}
   .theme-toggle svg{width:16px;height:16px;transition:opacity .2s ease, transform .35s cubic-bezier(.34,1.56,.64,1)}
   .theme-toggle .icon-sun{display:none}
   .theme-toggle .icon-moon{display:block}
-  .light .theme-toggle{border-color:rgba(15,17,24,.10);color:var(--text-2)}
-  .light .theme-toggle:hover{background:rgba(15,17,24,.05);color:var(--text)}
+  .light .theme-toggle{color:var(--text-3)}
+  .light .theme-toggle:hover{color:var(--text-2);background:rgba(15,17,24,.04)}
   .light .theme-toggle .icon-sun{display:block}
   .light .theme-toggle .icon-moon{display:none}
 
@@ -1973,8 +1992,7 @@
 <div class="nav-wrap">
   <nav class="nav" aria-label="Primary">
     <a class="brand" href="#">
-      <span class="brand-mark"></span>
-      <span>RentedIn</span>
+      <span>Rented<span class="brand-accent">In</span></span>
     </a>
     <div class="nav-links">
       <a href="#how-link">How it works</a>
@@ -2003,7 +2021,7 @@
 
     <h1 class="display">
       Scale your LinkedIn outbound<br/>
-      <em>beyond the limits.</em>
+      <em>beyond the limits</em>
     </h1>
 
     <p class="hero-sub">
@@ -2025,6 +2043,9 @@
 <!-- ============ HOW IT WORKS — mega section ============ -->
 <section class="how" id="how-link">
   <div class="wrap">
+    <div class="how-eyebrow-row">
+      <span class="eyebrow"><span class="dot"></span>How it works</span>
+    </div>
     <div class="steps-spine">
       <span class="spine-line" aria-hidden="true"></span>
 
@@ -2274,7 +2295,7 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow"><span class="dot"></span>Pricing</span>
-      <h2 class="section-title">Outreach is a numbers game. <em>Stop playing it on one account.</em></h2>
+      <h2 class="section-title">Outreach is a numbers game <em>Stop playing it on one account</em></h2>
     </div>
 
     <div class="price-grid">
@@ -2375,7 +2396,7 @@
     <div class="guar-card">
       <div class="col-text">
         <span class="eyebrow"><span class="dot"></span>Replacement guarantee</span>
-        <h2 class="section-title">The strongest replacement guarantee <em>on the market.</em></h2>
+        <h2 class="section-title">The strongest replacement guarantee <em>on the market</em></h2>
         <p>If LinkedIn restricts, suspends, or bans a profile during your rental period &mdash; for any reason &mdash; we replace it within 24 hours. No usage audit. No &ldquo;you violated rule X.&rdquo; No fine print.</p>
         <p class="small">The only thing we ask: don't share access outside your team, and don't use the profile for anything illegal. That's it.</p>
       </div>
@@ -2394,7 +2415,7 @@
 <!-- ============ FINAL CTA ============ -->
 <section class="final" id="order">
   <div class="wrap">
-    <h2>Stop burning real profiles.<br/><em>Start scaling.</em></h2>
+    <h2>Stop burning real profiles<br/><em>Start scaling</em></h2>
     <ul class="final-claims">
       <li><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 7l3.5 3.5L12 4"/></svg>Pre-warmed, customized to your offer</li>
       <li><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M7 4v3l2 1.5"/></svg>Live in under 24 hours</li>
@@ -2413,7 +2434,7 @@
   <div class="wrap">
     <div class="foot-top">
       <div>
-        <div class="foot-brand"><span class="brand-mark"></span>RentedIn</div>
+        <div class="foot-brand">Rented<span class="brand-accent">In</span></div>
         <p class="foot-tag">Rented LinkedIn profiles for outbound at scale. Pre-warmed with 500+ connections, customized to your offer, ready for any automation tool.</p>
       </div>
       <div class="foot-col">
