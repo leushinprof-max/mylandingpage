@@ -457,13 +457,25 @@
   .calc-ticks span:nth-child(8){left:77.777%}
   .calc-ticks span:nth-child(9){left:88.888%}
   .calc-ticks span:nth-child(10){left:100%;transform:translateX(-100%)}
-  .calc-stats{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;margin-top:22px;padding-top:20px;border-top:1px solid var(--line);position:relative}
-  .calc-stat{padding:0 24px;border-right:1px solid var(--line);position:relative}
+  .calc-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;margin-top:24px;padding-top:22px;border-top:1px solid var(--line);position:relative}
+  .calc-stat{
+    padding:0 26px;border-right:1px solid var(--line);position:relative;
+    display:flex;flex-wrap:wrap;align-items:baseline;column-gap:10px;row-gap:10px;
+  }
   .calc-stat:first-child{padding-left:4px}
   .calc-stat:last-child{border-right:0;padding-right:0}
-  .calc-stat-label{font-size:11px;color:var(--text-3);font-family:'Geist Mono',monospace;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
-  .calc-stat-num{font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:42px;color:#fff;letter-spacing:-.025em;line-height:1;margin-top:8px;font-variant-numeric:tabular-nums}
-  .calc-stat-sub{font-size:12.5px;color:var(--text-3);margin-top:6px;line-height:1.4}
+  .calc-stat-label{flex:1 1 100%;font-size:11px;color:var(--text-3);font-family:'Geist Mono',monospace;letter-spacing:.10em;text-transform:uppercase;font-weight:500}
+  .calc-stat-num{font-family:'Bricolage Grotesque',sans-serif;font-weight:500;font-size:52px;color:#fff;letter-spacing:-.03em;line-height:1;margin-top:0;font-variant-numeric:tabular-nums;display:inline-block;transform-origin:left center}
+  .calc-stat-num.bump{animation:calcBump .42s cubic-bezier(.34,1.56,.64,1)}
+  @keyframes calcBump{
+    0%{transform:scale(1)}
+    40%{transform:scale(1.07)}
+    100%{transform:scale(1)}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .calc-stat-num.bump{animation:none}
+  }
+  .calc-stat-sub{font-size:13px;color:var(--text-3);margin-top:0;line-height:1}
   .calc-stat.matters .calc-stat-num{color:#c4b5fd}
   .calc-foot{margin-top:24px;text-align:center;font-size:13px;color:var(--text-3);line-height:1.5}
   .calc-foot b{color:var(--text);font-weight:500}
@@ -486,7 +498,7 @@
      right = step1-cards right (.steps-spine right - 28px, matches .step1-stage padding) */
   @media (min-width:1001px){
     .pricing > .wrap > .section-head,
-    .pricing > .wrap > .price-grid,
+    .pricing > .wrap > .pricing-layout,
     .pricing > .wrap > .calc-card,
     .pricing > .wrap > .calc-foot,
     .guar > .wrap > .guar-card{
@@ -992,7 +1004,39 @@
   .pricing{padding:56px 0 64px;position:relative}
   .pricing .section-head{margin-bottom:0}
   .pricing .calc-foot{margin-top:18px;font-size:12.5px}
-  .price-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px;margin-top:32px}
+  .pricing-layout{display:grid;grid-template-columns:1fr 320px;gap:18px;margin-top:32px;align-items:stretch}
+  .pricing-layout .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:0}
+  .price-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:32px}
+  .pricing-incl{
+    background:linear-gradient(180deg,#0d1018,#08090d);
+    border:1px solid var(--line);border-radius:16px;
+    padding:22px 22px 22px;
+    display:flex;flex-direction:column;gap:14px;
+    position:relative;overflow:hidden;
+  }
+  .pricing-incl::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(80% 60% at 100% 0%, rgba(139,92,246,.10), transparent 60%);
+  }
+  .pricing-incl > *{position:relative}
+  .pricing-incl-lbl{
+    font-family:'Geist Mono',monospace;font-weight:500;
+    font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);
+  }
+  .pricing-incl-list{
+    margin:0;padding:0;list-style:none;
+    display:flex;flex-direction:column;gap:11px;
+  }
+  .pricing-incl-list li{
+    display:flex;align-items:flex-start;gap:10px;
+    font-size:13.5px;color:var(--text);line-height:1.45;
+  }
+  .pricing-incl-list li .ck{
+    flex-shrink:0;width:16px;height:16px;border-radius:50%;
+    background:rgba(34,197,94,.14);color:var(--green);
+    display:grid;place-items:center;margin-top:2px;
+  }
+  .pricing-incl-list li .ck svg{width:9px;height:9px}
   .price-card{
     background:linear-gradient(180deg, #10131c, #0b0e15);
     border:1px solid var(--line);border-radius:16px;padding:20px;position:relative;
@@ -1003,6 +1047,16 @@
   .price-card .num{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:500;font-size:36px;line-height:1;letter-spacing:-.03em;margin-top:10px;color:#fff}
   .price-card .num small{font-family:'Geist',sans-serif;font-size:13px;color:var(--text-3);font-weight:400;margin-left:4px;letter-spacing:0}
   .price-card .scope{font-size:12.5px;color:var(--text-2);margin-top:8px}
+  .price-card .save-sticker{
+    display:inline-flex;align-items:center;align-self:flex-start;
+    margin-top:12px;margin-bottom:auto;
+    padding:4px 10px;border-radius:999px;
+    font-family:'Geist Mono',monospace;font-size:10.5px;font-weight:500;
+    letter-spacing:.10em;text-transform:uppercase;
+  }
+  .price-card .save-sticker.neutral{background:rgba(255,255,255,.05);color:var(--text-3);border:1px solid rgba(255,255,255,.10)}
+  .price-card .save-sticker.violet{background:rgba(139,92,246,.16);color:#cdb8ff;border:1px solid rgba(139,92,246,.32)}
+  .price-card .save-sticker.mint{background:rgba(34,197,94,.14);color:#86efac;border:1px solid rgba(34,197,94,.32)}
   .price-card .price-cta{
     margin-top:20px;display:inline-flex;align-items:center;justify-content:space-between;gap:10px;
     background:rgba(255,255,255,.03);border:1px solid var(--line);
@@ -1189,6 +1243,8 @@
     .hero-card-inner{grid-template-columns:1fr}
     .cat-grid{grid-template-columns:1fr 1fr;gap:14px}
     .inc-grid{grid-template-columns:1fr;gap:36px}
+    .pricing-layout{grid-template-columns:1fr;gap:14px}
+    .pricing-layout .price-grid{grid-template-columns:1fr 1fr 1fr}
     .price-grid{grid-template-columns:1fr 1fr}
     .compare-grid{grid-template-columns:1fr}
     .uc-grid{grid-template-columns:1fr}
@@ -1226,17 +1282,33 @@
 
     /* hero — fill viewport on mobile too */
     .hero{min-height:100vh;min-height:100svh;padding:80px 0 40px;justify-content:center}
-    .badge{font-size:12px;padding:5px 5px 5px 10px}
-    .badge .tag{font-size:10px;padding:2px 6px}
     h1.display{font-size:clamp(34px, 9vw, 56px);margin-top:18px}
     .hero-sub{font-size:15px;margin-top:18px;padding:0 4px}
     .cta-row{margin-top:24px}
-    .hero-visual{height:240px;max-width:380px}
-    .hero-pcard{width:240px;padding:12px 14px}
+    /* lead cards: compact cluster with overlap & rotation */
+    .hero-visual{
+      position:relative;height:300px;max-width:360px;margin:32px auto 0;
+      display:block;
+    }
+    .hero-pcard{
+      position:absolute;width:240px;padding:11px 14px;
+    }
+    .hero-pcard.fp-1{
+      top:0;left:0;right:auto;
+      --r:-3deg;transform:rotate(-3deg);
+    }
+    .hero-pcard.fp-2{
+      top:104px;left:50%;right:auto;
+      --r:2deg;transform:translateX(-50%) rotate(2deg);
+    }
+    .hero-pcard.fp-3{
+      top:208px;left:auto;right:0;display:flex;
+      --r:-2deg;transform:rotate(-2deg);
+    }
     .hero-pcard img{width:38px;height:38px}
-    .hero-pcard.fp-1{top:0;left:0;transform:rotate(-3deg)}
-    .hero-pcard.fp-2{top:88px;left:50%;transform:translateX(-50%) rotate(2deg)}
-    .hero-pcard.fp-3{display:none}
+    .hero-pcard .name{font-size:13.5px}
+    .hero-pcard .role{font-size:11.5px;margin-top:2px}
+    .hero-pcard .conn{font-size:9px;padding:2px 6px;letter-spacing:.04em}
 
     /* step 1 cards — auto-scrolling marquee + manual swipe control on mobile */
     .step1-cards{
@@ -2119,12 +2191,6 @@
   <div class="hero-spotlight"></div>
   <div class="wrap hero-inner">
     <div class="hero-text">
-      <a class="badge" href="#guarantee">
-        <span class="tag">NEW</span>
-        <span>Replacement guarantee, no questions asked</span>
-        <span class="arr">&rarr;</span>
-      </a>
-
       <h1 class="display">
         Rent LinkedIn profiles<br/>
         <em>10x your outreach</em>
@@ -2307,7 +2373,7 @@
               <div class="form-col form-col-input">
                 <div class="form-col-label">Customization form</div>
                 <div class="form-rows">
-                  <div class="form-row"><span class="form-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="form-key">company</span><span class="form-val"><b>CloudPivot</b></span></div>
+                  <div class="form-row"><span class="form-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="form-key">company</span><span class="form-val"><b>RentedIn</b></span></div>
                   <div class="form-row"><span class="form-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="form-key">position</span><span class="form-val"><b>GTM Engineer</b></span></div>
                   <div class="form-row"><span class="form-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="form-key">headline</span><span class="form-val">Helping <b>mid-market SaaS</b> hit pipeline goals</span></div>
                   <div class="form-row"><span class="form-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="form-key">about</span><span class="form-val">8 years building outbound with <b>Clay</b>, HubSpot, n8n</span></div>
@@ -2324,7 +2390,7 @@
                       <div class="preview-name preview-field" style="--ti:0">Maya Miller</div>
                       <span class="preview-conn preview-field" style="--ti:5"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M5.5 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm5 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM2 12c0-1.7 1.5-3 3.5-3s3.5 1.3 3.5 3v1H2v-1Zm7 1v-1c0-.7-.2-1.4-.6-2 .4-.1.7-.1 1.1-.1 2 0 3.5 1.3 3.5 3v1H9Z"/></svg>500+</span>
                     </div>
-                    <div class="preview-role preview-field" style="--ti:1"><b>GTM Engineer</b> at <b>CloudPivot</b></div>
+                    <div class="preview-role preview-field" style="--ti:1"><b>GTM Engineer</b> at <b>RentedIn</b></div>
                     <div class="preview-headline preview-field" style="--ti:2">Helping <b>mid-market SaaS</b> hit pipeline goals</div>
                     <div class="preview-divider"></div>
                     <div class="preview-section-label">About</div>
@@ -2433,34 +2499,41 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow"><span class="dot"></span>Pricing</span>
-      <h2 class="section-title">Outreach is a numbers game <em>Stop playing it on one account</em></h2>
+      <h2 class="section-title">Outreach is a numbers game, <em>play smart</em></h2>
     </div>
 
-    <div class="price-grid">
-      <div class="price-card">
-        <div class="tier">1&ndash;4 profiles</div>
-        <div class="num">$100<small>/profile/mo</small></div>
-        <div class="scope">For founders and small teams testing outbound.</div>
-        <a class="price-cta" href="https://t.me/drezd3n?text=Hi%2C%20I%27d%20like%20to%20rent%20a%20LinkedIn%20profile" target="_blank" rel="noopener noreferrer">Rent now <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l4 4-4 4"/></svg></a>
+    <div class="pricing-layout">
+      <div class="price-grid">
+        <div class="price-card">
+          <div class="tier">1&ndash;4 profiles</div>
+          <div class="num">$100<small>/profile/mo</small></div>
+          <span class="save-sticker neutral">Starting rate</span>
+          <a class="price-cta" href="https://t.me/drezd3n?text=Hi%2C%20I%27d%20like%20to%20rent%20a%20LinkedIn%20profile" target="_blank" rel="noopener noreferrer">Rent now <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l4 4-4 4"/></svg></a>
+        </div>
+        <div class="price-card">
+          <div class="tier">5&ndash;9 profiles</div>
+          <div class="num">$90<small>/profile/mo</small></div>
+          <span class="save-sticker violet">Save 10%</span>
+          <a class="price-cta" href="https://t.me/drezd3n?text=Hi%2C%20I%27d%20like%20to%20rent%20a%20LinkedIn%20profile" target="_blank" rel="noopener noreferrer">Rent now <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l4 4-4 4"/></svg></a>
+        </div>
+        <div class="price-card">
+          <div class="tier">10+ profiles</div>
+          <div class="num">$80<small>/profile/mo</small></div>
+          <span class="save-sticker mint">Save 20%</span>
+          <a class="price-cta" href="https://t.me/drezd3n?text=Hi%2C%20I%27d%20like%20to%20rent%20a%20LinkedIn%20profile" target="_blank" rel="noopener noreferrer">Rent now <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l4 4-4 4"/></svg></a>
+        </div>
       </div>
-      <div class="price-card">
-        <div class="tier">5&ndash;9 profiles</div>
-        <div class="num">$90<small>/profile/mo</small></div>
-        <div class="scope">For small agencies and SaaS teams scaling beyond their reps.</div>
-        <a class="price-cta" href="https://t.me/drezd3n?text=Hi%2C%20I%27d%20like%20to%20rent%20a%20LinkedIn%20profile" target="_blank" rel="noopener noreferrer">Rent now <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l4 4-4 4"/></svg></a>
-      </div>
-      <div class="price-card">
-        <div class="tier">10&ndash;24 profiles</div>
-        <div class="num">$80<small>/profile/mo</small></div>
-        <div class="scope">For agencies running outbound across multiple clients.</div>
-        <a class="price-cta" href="https://t.me/drezd3n?text=Hi%2C%20I%27d%20like%20to%20rent%20a%20LinkedIn%20profile" target="_blank" rel="noopener noreferrer">Rent now <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l4 4-4 4"/></svg></a>
-      </div>
-      <div class="price-card">
-        <div class="tier">25+ profiles</div>
-        <div class="num">Custom</div>
-        <div class="scope">For high-volume operations. Talk to us.</div>
-        <a class="price-cta" href="https://cal.com/ivan-leushin-cws6fu/15min" target="_blank" rel="noopener noreferrer">Book a call <svg class="arr" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l4 4-4 4"/></svg></a>
-      </div>
+
+      <aside class="pricing-incl">
+        <span class="pricing-incl-lbl">Every plan includes</span>
+        <ul class="pricing-incl-list">
+          <li><span class="ck"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>60+ days warm-up per profile</li>
+          <li><span class="ck"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>500+ real human connections</li>
+          <li><span class="ck"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Hand-built persona, tailored to your offer</li>
+          <li><span class="ck"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Plug into any automation tool</li>
+          <li><span class="ck"><svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6l2.5 2.5L9.5 3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>24h replacement guarantee</li>
+        </ul>
+      </aside>
     </div>
 
     <div class="calc-card">
@@ -2476,7 +2549,7 @@
       </div>
       <div class="calc-stats">
         <div class="calc-stat">
-          <div class="calc-stat-label">Connection requests</div>
+          <div class="calc-stat-label">Connections</div>
           <div class="calc-stat-num" id="calc-sent">400</div>
           <div class="calc-stat-sub">per month</div>
         </div>
@@ -2485,19 +2558,14 @@
           <div class="calc-stat-num" id="calc-leads">15</div>
           <div class="calc-stat-sub">per month</div>
         </div>
-        <div class="calc-stat">
+        <div class="calc-stat matters">
           <div class="calc-stat-label">Meetings</div>
           <div class="calc-stat-num" id="calc-meetings">3</div>
           <div class="calc-stat-sub">per month</div>
         </div>
-        <div class="calc-stat matters">
-          <div class="calc-stat-label">Clients</div>
-          <div class="calc-stat-num" id="calc-clients">1</div>
-          <div class="calc-stat-sub">per month</div>
-        </div>
       </div>
     </div>
-    <div class="calc-foot">Based on industry-average rates: <b>25%</b> accept &middot; <b>15%</b> reply &middot; <b>20%</b> book a meeting &middot; <b>33%</b> close. Your numbers will vary by ICP, copy, and offer.</div>
+    <div class="calc-foot">Based on industry-average rates: <b>25%</b> accept &middot; <b>15%</b> reply &middot; <b>20%</b> book a meeting. Your numbers will vary by ICP, copy, and offer.</div>
   </div>
 </section>
 
@@ -2509,21 +2577,26 @@
       sent = document.getElementById('calc-sent'),
       leads = document.getElementById('calc-leads'),
       mtg = document.getElementById('calc-meetings'),
-      cli = document.getElementById('calc-clients'),
       cards = document.querySelectorAll('.pricing .price-card');
   function tierIndex(n){
     if(n <= 4) return 0;
     if(n <= 9) return 1;
-    if(n <= 24) return 2;
-    return 3;
+    return 2;
   }
+  function bump(el){
+    if(!el) return;
+    el.classList.remove('bump');
+    void el.offsetWidth;
+    el.classList.add('bump');
+  }
+  var prevSent, prevLeads, prevMtg;
   function update(){
     var n = +s.value;
     c.textContent = n;
-    sent.textContent = (n*400).toLocaleString();
-    leads.textContent = n*15;
-    mtg.textContent = n*3;
-    cli.textContent = Math.round(n*3*0.33);
+    var sentVal = n*400, leadsVal = n*15, mtgVal = n*3;
+    if(sentVal !== prevSent){ sent.textContent = sentVal.toLocaleString(); bump(sent); prevSent = sentVal; }
+    if(leadsVal !== prevLeads){ leads.textContent = leadsVal; bump(leads); prevLeads = leadsVal; }
+    if(mtgVal !== prevMtg){ mtg.textContent = mtgVal; bump(mtg); prevMtg = mtgVal; }
     s.style.setProperty('--pct', ((n-1)/9*100) + '%');
     var idx = tierIndex(n);
     cards.forEach(function(card, i){
