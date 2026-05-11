@@ -1788,6 +1788,18 @@
   }
   .light .price-card.hl .price-cta:hover{background:linear-gradient(180deg, #a78bfa, #7c3aed)}
 
+  .light .pricing-incl{
+    background:linear-gradient(180deg, #ffffff, #fafbfd);
+    border-color:rgba(15,17,24,.08);
+    box-shadow:0 1px 0 rgba(15,17,24,.04);
+  }
+  .light .pricing-incl::before{
+    background:radial-gradient(80% 60% at 100% 0%, rgba(124,58,237,.06), transparent 60%);
+  }
+  .light .pricing-incl-lbl{color:#6b7280}
+  .light .pricing-incl-list li{color:#0b0d12}
+  .light .pricing-incl-list li .ck{background:rgba(34,197,94,.16);color:#15803d}
+
   /* ---- compare ---- */
   .light .compare{background:linear-gradient(180deg, transparent, rgba(124,58,237,.04), transparent)}
   .light .vs-card{background:#ffffff}
@@ -2792,14 +2804,28 @@
   var hero = document.querySelector('.hero');
   var target = document.querySelector('#how-link');
   if(!hero || !target) return;
-  function isInHero(){
-    var r = hero.getBoundingClientRect();
-    return r.bottom > 100;
+  var locked = false;
+  var unlockTimer = null;
+  // Snap only when user initiates scroll from the very top of the page. When returning to hero
+  // from below, trackpad/wheel momentum can emit stray positive deltaY samples while overall
+  // motion is upward — using scrollY (not hero rect) avoids re-triggering snap during return.
+  function atHeroTop(){ return window.scrollY < 30; }
+  function snapDown(){
+    if(locked) return;
+    locked = true;
+    target.scrollIntoView({ behavior:'smooth', block:'start' });
+    clearTimeout(unlockTimer);
+    unlockTimer = setTimeout(function(){ locked = false; }, 900);
   }
   window.addEventListener('wheel', function(e){
-    if(isInHero() && e.deltaY > 0){
+    // While snap animation is in flight, swallow further downward input so it doesn't restart the smooth scroll (judder).
+    if(locked){
+      if(e.deltaY > 0) e.preventDefault();
+      return;
+    }
+    if(atHeroTop() && e.deltaY > 0){
       e.preventDefault();
-      target.scrollIntoView({ behavior:'smooth', block:'start' });
+      snapDown();
     }
   }, { passive: false });
   var touchStartY = 0;
@@ -2807,10 +2833,15 @@
     touchStartY = e.touches[0].clientY;
   }, { passive: true });
   window.addEventListener('touchmove', function(e){
+    if(locked){
+      var dyLocked = touchStartY - e.touches[0].clientY;
+      if(dyLocked > 0) e.preventDefault();
+      return;
+    }
     var dy = touchStartY - e.touches[0].clientY;
-    if(isInHero() && dy > 12){
+    if(atHeroTop() && dy > 12){
       e.preventDefault();
-      target.scrollIntoView({ behavior:'smooth', block:'start' });
+      snapDown();
     }
   }, { passive: false });
 })();
